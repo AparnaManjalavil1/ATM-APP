@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:weightSum="7.0"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/bank_name_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/text_bank_name"
+        android:textColor="@color/colorWhiteBankName"
+        android:textSize="@dimen/size_bank_name_30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/label_select_transaction"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label_select_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center_horizontal"
+        android:text="@string/select_transaction"
+        android:textColor="@color/colorBackgroundDark"
+        android:textSize="@dimen/size_sub_heading_20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnDeposit"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_transaction"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDeposit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_deposit"
+        android:textColor="@color/colorWhiteBankName"
+        app:layout_constraintBottom_toTopOf="@id/btnTransfer"
+        app:layout_constraintEnd_toStartOf="@id/btnWithdraw"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_select_transaction" />
+
+    <Button
+        android:id="@+id/btnTransfer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_transfer"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@id/btnPinChange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnBalanceEnquirey"
+        app:layout_constraintTop_toBottomOf="@id/btnDeposit" />
+
+
+    <Button
+        android:id="@+id/btnPinChange"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="284dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_pin_change"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnMini"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTransfer" />
+
+    <Button
+        android:id="@+id/btnWithdraw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_withdraw"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@id/btnBalanceEnquirey"
+        app:layout_constraintStart_toEndOf="@id/btnDeposit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_select_transaction" />
+
+
+    <Button
+        android:id="@+id/btnBalanceEnquirey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_balance_enquirey"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@id/btnMini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/btnTransfer"
+        app:layout_constraintTop_toBottomOf="@id/btnWithdraw" />
+
+    <Button
+        android:id="@+id/btnMini"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="284dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_mini_statement"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnPinChange"
+        app:layout_constraintTop_toBottomOf="@id/btnBalanceEnquirey" />
+
+    <Button
+        android:id="@+id/btnOther"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginRight="114dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginTop="560dp"
+        android:layout_marginBottom="280dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_other"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnPinChange"
+        app:layout_constraintEnd_toStartOf="@id/btnMini"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btnCancel_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnOther"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

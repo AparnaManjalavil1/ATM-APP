@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".BalanceActivity">
+    <TextView
+        android:id="@+id/bank_name_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/text_bank_name"
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/size_bank_name_30sp"
+        app:layout_constraintBottom_toTopOf="@id/balanceDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+    <Button
+        android:id="@+id/buttonBackToMainPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/back_to_main_page"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balanceDisplay" />
+
+    <TextView
+        android:id="@+id/balanceDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:layout_marginBottom="16dp"
+        android:textColorLink="@color/colorLink"
+        android:textColorHighlight="@color/colorTextLink"
+        android:text="@string/balance_link"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorBackgroundDark"
+        app:layout_constraintBottom_toTopOf="@id/buttonBackToMainPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_balance" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

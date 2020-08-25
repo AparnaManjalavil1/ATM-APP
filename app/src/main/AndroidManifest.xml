@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.atm">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".DetailsDatabaseInstance"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/exalture"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".TransactionDetailsActivity" />
+        <activity android:name=".TransactionSuccessful" />
+        <activity android:name=".PinChangeActivity" />
+        <activity
+            android:name=".MiniStatementActivity"
+            android:configChanges="screenSize" />
+        <activity android:name=".BalanceActivity" />
+        <activity android:name=".TransferActivity" />
+        <activity
+            android:name=".SplashscreenActivity"
+            android:theme="@style/splashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".WithdrawActivity" />
+        <activity android:name=".DepositActivity" />
+        <activity android:name=".OthersActivity" />
+        <activity
+            android:name=".PinNumberActivity"
+            android:finishOnTaskLaunch="true" />
+        <activity
+            android:name=".AccountNumberActivity"
+            android:finishOnTaskLaunch="true" />
+        <activity
+            android:name=".MainActivity"
+            android:finishOnTaskLaunch="true" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

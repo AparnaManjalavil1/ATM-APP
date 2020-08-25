@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+   <androidx.constraintlayout.widget.ConstraintLayout
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:background="@color/colorAccent"
+   tools:context=".PinNumberActivity"
+       >
+    <TextView
+        android:id="@+id/enter_your_pin_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_pin_number"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorBackgroundDark"
+        android:textSize="@dimen/size_sub_heading_20sp"
+        app:layout_constraintBottom_toTopOf="@id/pin_number_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_pin_number"
+        app:layout_constraintVertical_bias="0.58" />
+
+       <TextView
+           android:id="@+id/bank_name_pin_number"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_horizontal"
+           android:text="@string/text_bank_name"
+           android:textColor="@android:color/background_light"
+           android:textSize="@dimen/size_bank_name_30sp"
+           app:layout_constraintBottom_toTopOf="@id/enter_your_pin_number"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pin_number_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enter_your_pin_number"
+        app:layout_constraintBottom_toTopOf="@id/buttonSubmit"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/colorBackgroundDark"
+        app:hintTextAppearance="@style/text_hint_appearance"
+        style="@style/text_input_layout_style"
+        android:hint="@string/pin_number"
+        >
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/enterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        android:textColor="@color/colorBackgroundDark"
+        android:textColorHint="@color/colorBackgroundDark"
+
+         />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_cancel"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/buttonSubmit"
+        app:layout_constraintEnd_toStartOf="@id/buttonSubmit"
+        app:layout_constraintTop_toBottomOf="@id/buttonSubmit"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_submit"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/pin_number_input_layout"
+        app:layout_constraintEnd_toStartOf="@id/pin_number_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/pin_number_input_layout"
+        app:layout_constraintBottom_toTopOf="@id/btnCancel" />
+
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

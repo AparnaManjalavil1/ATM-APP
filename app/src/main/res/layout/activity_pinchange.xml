@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        tools:context=".PinChangeActivity">
+    <TextView
+        android:id="@+id/bank_name_pin_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/text_bank_name"
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/size_bank_name_30sp"
+        app:layout_constraintBottom_toTopOf="@id/enter_pin_to_change"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enter_pin_to_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_pin_change"
+        android:textColor="@android:color/background_dark"
+        android:textSize="@dimen/size_sub_heading_20sp"
+        app:layout_constraintBottom_toTopOf="@id/pin_change_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_pin_change" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pin_change_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enter_pin_to_change"
+        app:layout_constraintBottom_toTopOf="@id/pin_confirmation_input_layout"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/colorBackgroundDark"
+        app:hintTextAppearance="@style/text_hint_appearance"
+        style="@style/text_input_layout_style"
+        android:hint="@string/pin_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/enterPinToChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberPassword"
+            android:textColorHint="@color/colorBackgroundDark"
+            android:textColor="@color/colorBackgroundDark"
+            android:maxLength="4"
+          />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pin_confirmation_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pin_change_input_layout"
+        app:layout_constraintBottom_toTopOf="@id/buttonPinChange"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/colorBackgroundDark"
+        app:hintTextAppearance="@style/text_hint_appearance"
+        style="@style/text_input_layout_style"
+        android:hint="@string/pin_confirmation">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterPinConfirmation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberPassword"
+            android:textColorHint="@color/colorBackgroundDark"
+            android:textColor="@color/colorBackgroundDark"
+            android:maxLength="4"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonPinChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_submit"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@id/buttonCancelPinChange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pin_confirmation_input_layout" />
+    <Button
+        android:id="@+id/buttonCancelPinChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_cancel"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPinChange" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

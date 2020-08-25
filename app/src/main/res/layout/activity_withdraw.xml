@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        tools:context=".WithdrawActivity">
+
+        <TextView
+            android:id="@+id/bank_name_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/text_bank_name"
+            android:textColor="@color/colorWhiteBankName"
+            android:textSize="@dimen/size_bank_name_30sp"
+            app:layout_constraintBottom_toTopOf="@id/enter_amount_to_withdraw"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/enter_amount_to_withdraw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/enter_withdraw_amount"
+            android:textColor="@color/colorBackgroundDark"
+            android:textSize="@dimen/size_sub_heading_20sp"
+            app:layout_constraintBottom_toTopOf="@id/deposit_input_layout"
+            app:layout_constraintEnd_toStartOf="@id/bank_name_withdraw"
+            app:layout_constraintStart_toEndOf="@id/bank_name_withdraw"
+            app:layout_constraintTop_toBottomOf="@id/bank_name_withdraw" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/deposit_input_layout"
+            style="@style/text_input_layout_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/amount"
+            android:textColorHint="@color/colorBackgroundDark"
+            app:hintTextAppearance="@style/text_hint_appearance"
+            app:layout_constraintBottom_toTopOf="@id/buttonDebit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/enter_amount_to_withdraw">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enterDebitAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:ems="10"
+                android:inputType="number"
+                android:maxLength="6"
+
+                android:textColor="@color/colorBackgroundDark"
+                android:textColorHint="@color/colorBackgroundDark"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonDebit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="114dp"
+            android:layout_marginLeft="114dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="114dp"
+            android:layout_marginRight="114dp"
+            android:background="@drawable/round_corners"
+            android:text="@string/text_button_submit"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toTopOf="@id/buttonBackToMainPage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deposit_input_layout" />
+
+        <Button
+            android:id="@+id/buttonBackToMainPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/round_corners"
+            android:text="@string/back_to_main_page"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonDebit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

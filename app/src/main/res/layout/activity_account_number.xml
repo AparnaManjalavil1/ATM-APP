@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+   >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        tools:context=".AccountNumberActivity"
+       >
+
+    <TextView
+        android:id="@+id/bank_name_account_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/text_bank_name"
+        android:textColor="@color/colorWhiteBankName"
+        android:textSize="@dimen/size_bank_name_30sp"
+        app:layout_constraintBottom_toTopOf="@id/enter_account_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enter_account_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_account_number"
+        android:textSize="@dimen/size_sub_heading_20sp"
+        android:textColor="@color/colorBackgroundDark"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintVertical_bias="0.58"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_account_number"
+        app:layout_constraintBottom_toTopOf="@id/account_number_input_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_number_input_layout"
+        style="@style/text_input_layout_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="@string/account_number"
+        android:textColorHint="@color/colorBackgroundDark"
+        app:hintTextAppearance="@style/text_hint_appearance"
+        app:layout_constraintBottom_toTopOf="@id/btnSubmit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enter_account_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/enterAccountNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="16"
+            android:textColor="@color/colorBackgroundDark"
+            android:textColorHint="@color/colorBackgroundDark" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_number_input_layout"
+        app:layout_constraintStart_toEndOf="@id/account_number_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/account_number_input_layout"
+        app:layout_constraintVertical_bias="0.699" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

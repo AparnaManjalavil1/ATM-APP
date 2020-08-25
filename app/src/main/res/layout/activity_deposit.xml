@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".DepositActivity">
+    <TextView
+        android:id="@+id/bank_name_deposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/text_bank_name"
+        android:textColor="@color/colorWhiteBankName"
+        android:textSize="@dimen/size_bank_name_30sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/enter_amount_to_deposit" />
+
+    <TextView
+        android:id="@+id/enter_amount_to_deposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/enter_deposit_amount"
+        android:textColor="@android:color/background_dark"
+        android:textSize="@dimen/size_sub_heading_20sp"
+        app:layout_constraintHorizontal_bias="0.29"
+        app:layout_constraintVertical_bias="0.58"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toTopOf="@id/deposit_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_deposit" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/deposit_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enter_amount_to_deposit"
+        app:layout_constraintBottom_toTopOf="@id/buttonCredit"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/colorBackgroundDark"
+        app:hintTextAppearance="@style/text_hint_appearance"
+        style="@style/text_input_layout_style"
+        android:hint="@string/amount">
+
+        <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/enterDepositAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+            android:textColorHint="@color/colorBackgroundDark"
+        android:textColor="@color/colorBackgroundDark"
+        android:maxLength="6"
+        android:autofillHints="" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/buttonCredit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginRight="114dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_submit"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@id/buttonBackToMainPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deposit_input_layout" />
+
+    <Button
+        android:id="@+id/buttonBackToMainPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/back_to_main_page"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonCredit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
