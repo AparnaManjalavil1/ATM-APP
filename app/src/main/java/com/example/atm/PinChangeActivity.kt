@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -54,12 +53,12 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
             val stringPinChange = enterPinToChange.text.toString()
             val stringPinConfirmation = enterPinConfirmation.text.toString()
             if (stringPinChange.trim().isEmpty()) {
-                enterPinToChange.error = "Please enter a new pin number"
+                enterPinToChange.error = getString(R.string.error_invalid_pin_number)
             } else if (stringPinConfirmation.trim().isEmpty()) {
-                enterPinConfirmation.error = "Please enter pin for confirmation"
+                enterPinConfirmation.error = getString(R.string.error_confirmation_pin_number)
             }
             else if(enterPinToChange.length()!=4){
-                enterPinToChange.error="Length should be 4"
+                enterPinToChange.error=getString(R.string.error_invalid_length)
                 enterPinToChange.text?.clear()
                 enterPinConfirmation.text?.clear()
 
