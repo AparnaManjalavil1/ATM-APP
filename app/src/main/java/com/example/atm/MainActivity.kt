@@ -22,7 +22,7 @@ private lateinit var binding: ActivityMainBinding
         btnBalanceEnquirey.setOnClickListener(this)
         btnPinChange.setOnClickListener(this)
         btnMini.setOnClickListener(this)
-        btnOther.setOnClickListener(this)
+        btnOthers.setOnClickListener(this)
         btnCancel_main.setOnClickListener {
             val cancelIntent = Intent(this@MainActivity, AccountNumberActivity::class.java)
             cancelIntent.addCategory(Intent.CATEGORY_HOME)
@@ -36,7 +36,7 @@ private lateinit var binding: ActivityMainBinding
     override fun onClick(view: View?) {
         when (view?.id) {
 
-            R.id.btnDeposit, R.id.btnWithdraw, R.id.btnTransfer, R.id.btnBalanceEnquirey, R.id.btnPinChange, R.id.btnMini, R.id.btnOther -> {
+            R.id.btnDeposit, R.id.btnWithdraw, R.id.btnTransfer, R.id.btnBalanceEnquirey, R.id.btnPinChange, R.id.btnMini, R.id.btnOthers -> {
 
                 val intent = Intent(this, PinNumberActivity::class.java)
                 intent.putExtra("button_clicked", view.id)

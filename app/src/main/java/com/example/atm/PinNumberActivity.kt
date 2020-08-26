@@ -15,7 +15,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.atm.databinding.ActivityPinNumberBinding
 import kotlinx.android.synthetic.main.activity_pin_number.*
 import kotlinx.coroutines.*
-import java.lang.Runnable
 import kotlin.coroutines.CoroutineContext
 
 class PinNumberActivity : AppCompatActivity(), CoroutineScope {
@@ -94,7 +93,7 @@ class PinNumberActivity : AppCompatActivity(), CoroutineScope {
                                             MiniStatementActivity::class.java
                                         )
                                     )
-                                R.id.btnOther ->
+                                R.id.btnOthers ->
                                     startActivity(
                                         Intent(
                                             this@PinNumberActivity,

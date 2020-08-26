@@ -14,7 +14,7 @@
     <string name="text_button_pin_change">PIN CHANGE</string>
     <string name="text_button_balance_enquirey">BALANCE ENQUIREY</string>
     <string name="text_mini_statement">MINI STATEMENT</string>
-    <string name="text_button_other">OTHER</string>
+    <string name="text_button_other">OTHERS</string>
     <string name="enter_pin_number">ENTER YOUR PIN NUMBER</string>
     <string name="enter_deposit_amount">ENTER THE AMOUNT TO DEPOSIT</string>
     <string name="enter_withdraw_amount">ENTER THE AMOUNT TO WITHDRAW</string>
