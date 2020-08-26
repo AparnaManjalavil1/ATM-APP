@@ -57,7 +57,15 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                 enterPinToChange.error = "Please enter a new pin number"
             } else if (stringPinConfirmation.trim().isEmpty()) {
                 enterPinConfirmation.error = "Please enter pin for confirmation"
-            } else {
+            }
+            else if(enterPinToChange.length()!=4){
+                enterPinToChange.error="Length should be 4"
+                enterPinToChange.text?.clear()
+                enterPinConfirmation.text?.clear()
+
+            }
+                else
+             {
                 val pinChangeNumber = Integer.parseInt(stringPinChange)
                 val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
                 val sharedPreferences: SharedPreferences =
@@ -79,6 +87,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                                     Toast.LENGTH_LONG
                                 ).show()
                                 enterPinToChange.text?.clear()
+                                enterPinConfirmation.text?.clear()
                             }
 
                         }
@@ -91,6 +100,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                                 Toast.LENGTH_LONG
                             ).show()
                             enterPinToChange.text?.clear()
+                            enterPinConfirmation.text?.clear()
                         }
                     }
 
