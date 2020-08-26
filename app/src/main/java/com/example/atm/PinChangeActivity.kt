@@ -52,59 +52,66 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
         fun readNewPinNumber() {
             val stringPinChange = enterPinToChange.text.toString()
             val stringPinConfirmation = enterPinConfirmation.text.toString()
-            if (stringPinChange.trim().isEmpty()) {
-                enterPinToChange.error = getString(R.string.error_invalid_pin_number)
-            } else if (stringPinConfirmation.trim().isEmpty()) {
-                enterPinConfirmation.error = getString(R.string.error_confirmation_pin_number)
-            }
-            else if(enterPinToChange.length()!=4){
-                enterPinToChange.error=getString(R.string.error_invalid_length)
-                enterPinToChange.text?.clear()
-                enterPinConfirmation.text?.clear()
+            try {
+                    if(stringPinChange.length==4) {
 
-            }
-                else
-             {
-                val pinChangeNumber = Integer.parseInt(stringPinChange)
-                val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
-                val sharedPreferences: SharedPreferences =
-                    this.getSharedPreferences("account_number", Context.MODE_PRIVATE)
-                val getAccountNumber = sharedPreferences.getLong("valid accountNumber", 0L)
-                db = DetailsDatabase.getAppDataBase(this)
-                GlobalScope.launch {
-                    val oldPassword = db?.details()?.getPassword(getAccountNumber)
-                    if (pinChangeNumber != oldPassword!!) {
-                        if (pinChangeNumber == pinConfirmationNumber) {
-                            db?.details()?.changePassword(pinChangeNumber, getAccountNumber)
-                            this@PinChangeActivity.runOnUiThread { showDialog() }
+                        val pinChangeNumber = Integer.parseInt(stringPinChange)
+                        val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
+                        val sharedPreferences: SharedPreferences =
+                            this.getSharedPreferences("account_number", Context.MODE_PRIVATE)
+                        val getAccountNumber = sharedPreferences.getLong("valid accountNumber", 0L)
+                        db = DetailsDatabase.getAppDataBase(this)
+                        GlobalScope.launch {
+                            val oldPassword = db?.details()?.getPassword(getAccountNumber)
+                            if (pinChangeNumber != oldPassword!!) {
+                                if (pinChangeNumber == pinConfirmationNumber) {
+                                    db?.details()?.changePassword(pinChangeNumber, getAccountNumber)
+                                    this@PinChangeActivity.runOnUiThread { showDialog() }
 
-                        } else {
-                            this@PinChangeActivity.runOnUiThread {
-                                Toast.makeText(
-                                    this@PinChangeActivity,
-                                    "Mismatch password",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                enterPinToChange.text?.clear()
-                                enterPinConfirmation.text?.clear()
+                                } else {
+                                    this@PinChangeActivity.runOnUiThread {
+                                        Toast.makeText(
+                                            this@PinChangeActivity,
+                                            "Mismatch password",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        enterPinToChange.text?.clear()
+                                        enterPinConfirmation.text?.clear()
+                                    }
+
+                                }
+
+                            } else {
+                                this@PinChangeActivity.runOnUiThread {
+                                    Toast.makeText(
+                                        this@PinChangeActivity,
+                                        "Already exist",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    enterPinToChange.text?.clear()
+                                    enterPinConfirmation.text?.clear()
+                                }
                             }
 
                         }
+                    }
+                else{
 
-                    } else {
-                        this@PinChangeActivity.runOnUiThread {
-                            Toast.makeText(
-                                this@PinChangeActivity,
-                                "Already exist",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            enterPinToChange.text?.clear()
-                            enterPinConfirmation.text?.clear()
-                        }
+                        enterPinToChange.text?.clear()
+                        enterPinConfirmation.text?.clear()
+                        enterPinToChange.error = resources.getString(R.string.error_invalid_length)
+
                     }
 
+            }catch(ex:Exception){
+                if (stringPinChange.trim().isEmpty()) {
+                    enterPinToChange.error = getString(R.string.error_invalid_pin_number)
+                } else if (stringPinConfirmation.trim().isEmpty()) {
+                    enterPinConfirmation.error = getString(R.string.error_confirmation_pin_number)
                 }
+
             }
+
 
         }
         buttonPinChange.setOnClickListener {
