@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">E-ATM</string>
     <string name="error_invalid_account_number">Please Enter  Valid Account Number</string>
+    <string name="text_double_exit">Please click BACK again to exit</string>
     <string name="text_bank_name">EXALTURE BANK INDIA</string>
     <string name="select_transaction">SELECT TRANSACTION</string>
     <string name="text_account_number">ENTER YOUR ACCOUNT NUMBER</string>
@@ -22,6 +23,9 @@
     <string name="enter_pin_change">ENTER NEW PIN NUMBER</string>
     <string name="pin_number">Pin Number</string>
     <string name="pin_confirmation">Confirm Pin Number </string>
+    <string name="error_pin_mismatch">Mismatch Password</string>
+    <string name="error_already_exist">Already Exist</string>
+    <string name="dialog_ok">OK</string>
     <string name="amount">Amount</string>
     <string name="error_invalid_pin_number">Please Enter Valid Pin Number</string>
     <string name="enter_multiples_of_100">Please Enter Multiples Of 100</string>

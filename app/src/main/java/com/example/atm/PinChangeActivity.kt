@@ -3,12 +3,10 @@ package com.example.atm
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.atm.databinding.ActivityPinchangeBinding
@@ -25,21 +23,18 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var binding: ActivityPinchangeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_pinchange)
-        //val editPinChange = findViewById<EditText>(R.id.editPinChange)
-       // val editPinConfirmation = findViewById<EditText>(R.id.editPinConfirmation)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_pinchange)
         fun showDialog() {
             val builder = AlertDialog.Builder(this@PinChangeActivity)
             builder.setTitle(R.string.dialog_title)
             builder.setMessage(R.string.dialog_message)
-            builder.setPositiveButton("OK") { dialogInterface, which ->
+            builder.setPositiveButton(resources.getString(R.string.dialog_ok)) { dialogInterface, which ->
                 val pinChangeIntent =
                     Intent(
                         this@PinChangeActivity,
                         AccountNumberActivity::class.java
                     )
-                pinChangeIntent.addCategory(Intent.CATEGORY_HOME)
-                pinChangeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                ToastAndIntent().intent(pinChangeIntent)
                 startActivity(pinChangeIntent)
 
             }
@@ -53,57 +48,53 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
             val stringPinChange = enterPinToChange.text.toString()
             val stringPinConfirmation = enterPinConfirmation.text.toString()
             try {
-                    if(stringPinChange.length==4) {
+                if (stringPinChange.length == 4) {
 
-                        val pinChangeNumber = Integer.parseInt(stringPinChange)
-                        val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
-                        val sharedPreferences: SharedPreferences =
-                            this.getSharedPreferences("account_number", Context.MODE_PRIVATE)
-                        val getAccountNumber = sharedPreferences.getLong("valid accountNumber", 0L)
-                        db = DetailsDatabase.getAppDataBase(this)
-                        GlobalScope.launch {
-                            val oldPassword = db?.details()?.getPassword(getAccountNumber)
-                            if (pinChangeNumber != oldPassword!!) {
-                                if (pinChangeNumber == pinConfirmationNumber) {
-                                    db?.details()?.changePassword(pinChangeNumber, getAccountNumber)
-                                    this@PinChangeActivity.runOnUiThread { showDialog() }
-
-                                } else {
-                                    this@PinChangeActivity.runOnUiThread {
-                                        Toast.makeText(
-                                            this@PinChangeActivity,
-                                            "Mismatch password",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                        enterPinToChange.text?.clear()
-                                        enterPinConfirmation.text?.clear()
-                                    }
-
-                                }
+                    val pinChangeNumber = Integer.parseInt(stringPinChange)
+                    val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
+                    val mAccountNumber =
+                        SharedPreferenceAccess(this).getInstanceObject(this).getPreference()
+                    db = DetailsDatabase.getAppDataBase(this)
+                    GlobalScope.launch {
+                        val oldPassword = db?.details()?.getPassword(mAccountNumber)
+                        if (pinChangeNumber != oldPassword!!) {
+                            if (pinChangeNumber == pinConfirmationNumber) {
+                                db?.details()?.changePassword(pinChangeNumber, mAccountNumber)
+                                this@PinChangeActivity.runOnUiThread { showDialog() }
 
                             } else {
                                 this@PinChangeActivity.runOnUiThread {
-                                    Toast.makeText(
+                                    ToastAndIntent().toast(
                                         this@PinChangeActivity,
-                                        "Already exist",
-                                        Toast.LENGTH_LONG
-                                    ).show()
+                                        resources.getString(R.string.error_pin_mismatch)
+                                    )
                                     enterPinToChange.text?.clear()
                                     enterPinConfirmation.text?.clear()
                                 }
+
                             }
 
+                        } else {
+                            this@PinChangeActivity.runOnUiThread {
+                                ToastAndIntent().toast(
+                                    this@PinChangeActivity,
+                                    resources.getString(R.string.error_already_exist)
+                                )
+                                enterPinToChange.text?.clear()
+                                enterPinConfirmation.text?.clear()
+                            }
                         }
-                    }
-                else{
-
-                        enterPinToChange.text?.clear()
-                        enterPinConfirmation.text?.clear()
-                        enterPinToChange.error = resources.getString(R.string.error_invalid_length)
 
                     }
+                } else {
 
-            }catch(ex:Exception){
+                    enterPinToChange.text?.clear()
+                    enterPinConfirmation.text?.clear()
+                    enterPinToChange.error = resources.getString(R.string.error_invalid_length)
+
+                }
+
+            } catch (ex: Exception) {
                 if (stringPinChange.trim().isEmpty()) {
                     enterPinToChange.error = getString(R.string.error_invalid_pin_number)
                 } else if (stringPinConfirmation.trim().isEmpty()) {
@@ -120,7 +111,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
         }
         enterPinConfirmation.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
-            if(keyEvent.action==KeyEvent.ACTION_DOWN) {
+            if (keyEvent.action == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     readNewPinNumber()
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -131,19 +122,10 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
             false
         })
         buttonCancelPinChange.setOnClickListener {
-            val sharedPreferences: SharedPreferences =
-                this@PinChangeActivity.getSharedPreferences(
-                    "account_number",
-                    Context.MODE_PRIVATE
-                )
-
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.clear()
-            editor.apply()
+            SharedPreferenceAccess(this).clearPreference()
             val pinChangeCancelIntent =
                 Intent(this@PinChangeActivity, AccountNumberActivity::class.java)
-            pinChangeCancelIntent.addCategory(Intent.CATEGORY_HOME)
-            pinChangeCancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            ToastAndIntent().intent(pinChangeCancelIntent)
             startActivity(pinChangeCancelIntent)
             finish()
         }

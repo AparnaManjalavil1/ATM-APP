@@ -3,12 +3,10 @@ package com.example.atm
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.atm.databinding.ActivityOthersBinding
@@ -19,13 +17,13 @@ import kotlin.coroutines.CoroutineContext
 class OthersActivity : AppCompatActivity(), CoroutineScope {
     private var db: DetailsDatabase? = null
     private lateinit var job: Job
-    private lateinit var binding:ActivityOthersBinding
+    private lateinit var binding: ActivityOthersBinding
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_others)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_others)
         //val editPhoneNumber = findViewById<EditText>(R.id.enterPhoneNumberChange)
 
         fun showDialog() {
@@ -57,24 +55,25 @@ class OthersActivity : AppCompatActivity(), CoroutineScope {
             ) {
                 enterPhoneNumberChange.error =
                     resources.getString(R.string.error_valid_phone_number)
-            }else{
+            } else {
                 val phoneNumber = stringPhoneNumber.toLong()
-                val sharedPreferences: SharedPreferences =
-                    this.getSharedPreferences("account_number", Context.MODE_PRIVATE)
-                val getAccountNumber = sharedPreferences.getLong("valid accountNumber", 0L)
+                val mAccountNumber =
+                    SharedPreferenceAccess(this).getInstanceObject(this).getPreference()
                 db = DetailsDatabase.getAppDataBase(this)
                 GlobalScope.launch {
-                    if ((!(db?.details()?.isPhoneNumberExist(phoneNumber)!!))&&stringPhoneNumber.trim().length ==10) {
-                        db?.details()?.updatePhoneNumber(phoneNumber, getAccountNumber)
+                    if ((!(db?.details()
+                            ?.isPhoneNumberExist(phoneNumber)!!)) && stringPhoneNumber.trim().length == 10
+                    ) {
+                        db?.details()?.updatePhoneNumber(phoneNumber, mAccountNumber)
                         this@OthersActivity.runOnUiThread { showDialog() }
 
 
                     } else {
                         this@OthersActivity.runOnUiThread {
-                            Toast.makeText(
-                                this@OthersActivity, resources.getString(R.string.error_valid_phone_number),
-                                Toast.LENGTH_LONG
-                            ).show()
+                            ToastAndIntent().toast(
+                                this@OthersActivity,
+                                resources.getString(R.string.error_valid_phone_number)
+                            )
                             enterPhoneNumberChange.text?.clear()
                         }
                     }
@@ -82,7 +81,7 @@ class OthersActivity : AppCompatActivity(), CoroutineScope {
             }
 
 
-            }
+        }
 
         buttonPhoneNumberChange.setOnClickListener {
             readNewPhoneNumber()
@@ -97,20 +96,11 @@ class OthersActivity : AppCompatActivity(), CoroutineScope {
             false
         })
         buttonCancelPhoneNumberChange.setOnClickListener {
-            val sharedPreferences: SharedPreferences =
-                this@OthersActivity.getSharedPreferences(
-                    "account_number",
-                    Context.MODE_PRIVATE
-                )
-
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.clear()
-            editor.apply()
-            val pinChangeCancelIntent =
+            SharedPreferenceAccess(this).clearPreference()
+            val phoneNumberChangeCancelIntent =
                 Intent(this@OthersActivity, AccountNumberActivity::class.java)
-            pinChangeCancelIntent.addCategory(Intent.CATEGORY_HOME)
-            pinChangeCancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(pinChangeCancelIntent)
+            ToastAndIntent().intent(phoneNumberChangeCancelIntent)
+            startActivity(phoneNumberChangeCancelIntent)
             finish()
         }
     }

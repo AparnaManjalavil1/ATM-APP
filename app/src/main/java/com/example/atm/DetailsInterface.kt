@@ -36,8 +36,7 @@ interface DetailsInterface {
     @Query("SELECT EXISTS(SELECT * FROM AccountDetails WHERE PHONE_NUMBER =:phoneNumber)")
     suspend fun isPhoneNumberExist(phoneNumber: Long): Boolean
 
-    @Update
-    suspend fun update(details: AccountDetails)
+
 
 
 }

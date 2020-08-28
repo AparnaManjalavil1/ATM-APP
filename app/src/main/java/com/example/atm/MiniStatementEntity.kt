@@ -27,7 +27,5 @@ data class MiniStatementEntity(
     var balance: Int
 
 
-) {
-    constructor() : this(0L, 0L, "", "", "",0)
-}
+)
 

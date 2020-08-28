@@ -36,16 +36,16 @@ class MiniStatementAdapter(
 
     inner class MiniStatementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textViewDate = itemView.findViewById<TextView>(R.id.transaction_date)
-        var textViewTime=itemView.findViewById<TextView>(R.id.transaction_time)
+        var textViewTime = itemView.findViewById<TextView>(R.id.transaction_time)
         var textViewRemark = itemView.findViewById<TextView>(R.id.transaction_remark)
         var textViewAmount = itemView.findViewById<TextView>(R.id.transaction_amount)
-        var textViewTransaction=itemView.findViewById<TextView>(R.id.transaction_remark_display)
+        var textViewTransaction = itemView.findViewById<TextView>(R.id.transaction_remark_display)
 
         fun initializeRowUIComponents(mini: MiniStatement, action: OnItemClickListener) {
 
             textViewDate.text = mini.transactionDate
             textViewRemark.text = mini.remark
-            textViewTime.text=mini.transactionTime
+            textViewTime.text = mini.transactionTime
             if (textViewRemark.text == "debit") {
                 textViewAmount.text = itemView.context.resources.getString(
                     R.string.mini_statement_amount,
@@ -54,16 +54,14 @@ class MiniStatementAdapter(
                 )
                 textViewTransaction.text = itemView.context.getString(R.string.show_debit)
                 textViewTransaction.setTextColor(Color.parseColor("#ff0000"))
-            }
-            else if (textViewRemark.text == "credit") {
+            } else if (textViewRemark.text == "credit") {
                 textViewAmount.text = itemView.context.resources.getString(
                     R.string.mini_statement_amount,
                     mini.amount.toString()
                 )
-                textViewTransaction.text=itemView.context.getString(R.string.show_credit)
+                textViewTransaction.text = itemView.context.getString(R.string.show_credit)
                 textViewTransaction.setTextColor(Color.parseColor("#ff669900"))
-            }
-            else if (textViewRemark.text == "transfer") {
+            } else if (textViewRemark.text == "transfer") {
                 textViewAmount.text = itemView.context.resources.getString(
                     R.string.mini_statement_amount,
                     mini.amount.toString()

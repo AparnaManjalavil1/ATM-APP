@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         btnDeposit.setOnClickListener(this)
         btnWithdraw.setOnClickListener(this)
         btnTransfer.setOnClickListener(this)
@@ -25,8 +25,7 @@ private lateinit var binding: ActivityMainBinding
         btnOthers.setOnClickListener(this)
         btnCancel_main.setOnClickListener {
             val cancelIntent = Intent(this@MainActivity, AccountNumberActivity::class.java)
-            cancelIntent.addCategory(Intent.CATEGORY_HOME)
-            cancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            ToastAndIntent().intent(cancelIntent)
             startActivity(cancelIntent)
         }
 
@@ -38,8 +37,10 @@ private lateinit var binding: ActivityMainBinding
 
             R.id.btnDeposit, R.id.btnWithdraw, R.id.btnTransfer, R.id.btnBalanceEnquirey, R.id.btnPinChange, R.id.btnMini, R.id.btnOthers -> {
 
+                val buttonClick =
+                    ConfigProperties().getConfigValue(this, "pinNumberNavigation")
                 val intent = Intent(this, PinNumberActivity::class.java)
-                intent.putExtra("button_clicked", view.id)
+                intent.putExtra(buttonClick, view.id)
                 startActivity(intent)
 
             }

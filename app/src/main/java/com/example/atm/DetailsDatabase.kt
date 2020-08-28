@@ -38,8 +38,8 @@ abstract class DetailsDatabase : RoomDatabase() {
         }
 
 
-        fun destroyDataBase() {
-            DETAILSBASE = null
-        }
+        //fun destroyDataBase() {
+        // DETAILSBASE = null
+        // }
     }
 }

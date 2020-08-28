@@ -8,8 +8,6 @@ import kotlin.coroutines.CoroutineContext
 
 class SplashscreenActivity : AppCompatActivity(), CoroutineScope {
     private var db: DetailsDatabase? = null
-
-    // val accountDetails=AccountDetails()
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main

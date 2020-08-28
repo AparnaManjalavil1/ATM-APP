@@ -8,11 +8,23 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     tools:context=".TransactionSuccessful">
+        <TextView
+            android:id="@+id/bank_name_transaction_successful"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/text_bank_name"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/size_bank_name_30sp"
+            app:layout_constraintBottom_toTopOf="@id/transactionSuccessfulImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/transactionSuccessfulImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_transaction_successful"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/transfer_successful" />

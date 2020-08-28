@@ -21,6 +21,4 @@ data class AccountDetails(
     var phoneNumber: Long
 
 
-) {
-    constructor() : this(0L, 0, 0,0L)
-}
+)

@@ -1,8 +1,6 @@
 package com.example.atm
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -22,18 +20,18 @@ class BalanceActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
-    private lateinit var binding:ActivityBalanceBinding
+    private lateinit var binding: ActivityBalanceBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_balance)
-       // val balanceDisplay = findViewById<TextView>(R.id.textViewBalanceDisplay)
-        val sharedPreferences: SharedPreferences =
-            this.getSharedPreferences("account_number", Context.MODE_PRIVATE)
-        val getAccountNumber = sharedPreferences.getLong("valid accountNumber", 0L)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_balance)
+
+        val mAccountNumber =
+            SharedPreferenceAccess(this@BalanceActivity).getInstanceObject(this@BalanceActivity)
+                .getPreference()
         db = DetailsDatabase.getAppDataBase(this)
         GlobalScope.launch {
-            val balance = db?.details()?.getAmount(getAccountNumber)
+            val balance = db?.details()?.getAmount(mAccountNumber)
 
 
             /*
@@ -54,10 +52,10 @@ class BalanceActivity : AppCompatActivity(), CoroutineScope {
             balanceDisplay.setText(spannableString, TextView.BufferType.SPANNABLE)
             balanceDisplay.movementMethod = LinkMovementMethod.getInstance()
             buttonBackToMainPage.setOnClickListener {
+                SharedPreferenceAccess(this@BalanceActivity).clearPreference()
                 val cancelBalanceIntent =
                     Intent(this@BalanceActivity, AccountNumberActivity::class.java)
-                cancelBalanceIntent.addCategory(Intent.CATEGORY_HOME)
-                cancelBalanceIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                ToastAndIntent().intent(cancelBalanceIntent)
                 startActivity(cancelBalanceIntent)
             }
 

@@ -2,36 +2,27 @@ package com.example.atm
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.atm.databinding.ActivityWithdrawBinding
 import kotlinx.android.synthetic.main.activity_withdraw.*
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class WithdrawActivity : AppCompatActivity(), CoroutineScope {
     private var db: DetailsDatabase? = null
     private lateinit var job: Job
-    var access:SharedPreferenceAccess?=null
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
     private lateinit var binding: ActivityWithdrawBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=DataBindingUtil.setContentView(this,R.layout.activity_withdraw)
-        //val editDebitAmount = findViewById<EditText>(R.id.editDebitAmount)
-        //val buttonWithdraw = findViewById<Button>(R.id.buttonDebit)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_withdraw)
         fun readDebitAmount() {
             val stringDebitAmount = enterDebitAmount.text.toString()
             if (stringDebitAmount.trim().isEmpty())
@@ -39,23 +30,19 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
             else {
                 val debitAmount = Integer.parseInt(stringDebitAmount)
                 if (debitAmount % 100 == 0) {
-                    val sharedPreferences: SharedPreferences =
-                        this.getSharedPreferences("account_number", Context.MODE_PRIVATE)
-                    val mAccountNumber = sharedPreferences.getLong("valid accountNumber", 0L)
+                    val debit = ConfigProperties().getConfigValue(this, "withdrawRemark")
+                    val mAccountNumber =
+                        SharedPreferenceAccess(this@WithdrawActivity).getInstanceObject(this@WithdrawActivity)
+                            .getPreference()
                     db = DetailsDatabase.getAppDataBase(this)
                     GlobalScope.launch {
                         val balance = db?.details()?.getAmount(mAccountNumber)
                         val debitBalance: Int = balance!!
                         if (debitAmount <= debitBalance) {
                             val debitAfterAmount = debitBalance - debitAmount
-                            db?.details()?.updateBalance(debitAfterAmount,mAccountNumber )
-                            val date = Date()
-                            val transactionDateFormat =
-                                SimpleDateFormat("MMM dd yyy", Locale.getDefault())
-                           val transactionTimeFormat =
-                               SimpleDateFormat("hh:mm a", Locale.getDefault())
-                            val transactionTime: String = transactionTimeFormat.format(date)
-                            val transactionDate: String = transactionDateFormat.format(date)
+                            db?.details()?.updateBalance(debitAfterAmount, mAccountNumber)
+                            val transactionDate = MiniStatementTable().setTransactionDate()
+                            val transactionTime = MiniStatementTable().setTransactionTime()
                             val uniqueId = db?.transactionDetails()?.random()
                             db?.transactionDetails()?.insertTransactionDetails(
                                 MiniStatementEntity(
@@ -63,7 +50,7 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
                                     mAccountNumber,
                                     transactionTime,
                                     transactionDate,
-                                    "debit",
+                                    debit,
                                     debitAmount
                                 )
                             )
@@ -75,12 +62,10 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
                             )
                         } else {
                             this@WithdrawActivity.runOnUiThread {
-                                Toast.makeText(
+                                ToastAndIntent().toast(
                                     this@WithdrawActivity,
-                                    resources.getString(R.string.insufficient_balance),
-                                    Toast.LENGTH_LONG
+                                    resources.getString(R.string.insufficient_balance)
                                 )
-                                    .show()
                                 enterDebitAmount.text?.clear()
                             }
 
@@ -89,12 +74,11 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
                     }
 
                 } else {
-                    Toast.makeText(
+                    ToastAndIntent().toast(
                         this@WithdrawActivity,
-                        resources.getString(R.string.enter_multiples_of_100),
-                        Toast.LENGTH_LONG
+                        resources.getString(R.string.enter_multiples_of_100)
                     )
-                        .show()
+
                 }
                 enterDebitAmount.text?.clear()
             }
@@ -104,8 +88,8 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
 
 
         }
-        binding.enterDebitAmount.setOnKeyListener(View.OnKeyListener { view, keyCode,keyEvent ->
-            if(keyEvent.action==KeyEvent.ACTION_DOWN) {
+        binding.enterDebitAmount.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
+            if (keyEvent.action == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     readDebitAmount()
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -116,16 +100,10 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
             false
         })
         binding.buttonBackToMainPage.setOnClickListener {
-            val sharedPreferences: SharedPreferences =
-                this@WithdrawActivity.getSharedPreferences("account_number", Context.MODE_PRIVATE)
-
-            val editor: SharedPreferences.Editor = sharedPreferences.edit()
-            editor.clear()
-            editor.apply()
+            SharedPreferenceAccess(this).clearPreference()
             val withdrawCancelIntent =
                 Intent(this@WithdrawActivity, AccountNumberActivity::class.java)
-            withdrawCancelIntent.addCategory(Intent.CATEGORY_HOME)
-            withdrawCancelIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            ToastAndIntent().intent(withdrawCancelIntent)
             startActivity(withdrawCancelIntent)
             finish()
 
