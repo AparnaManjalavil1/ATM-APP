@@ -105,7 +105,7 @@ class OthersActivity : AppCompatActivity(), CoroutineScope {
                     return@OnKeyListener true
                 }
             }
-                false
+            false
 
         })
         buttonCancelPhoneNumberChange.setOnClickListener {

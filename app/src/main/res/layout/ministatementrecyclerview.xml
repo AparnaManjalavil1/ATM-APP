@@ -12,16 +12,12 @@
 
     <TextView
         android:id="@+id/bank_name_mini_statement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/text_bank_name"
-        android:textColor="@color/colorWhiteBankName"
-        android:textSize="@dimen/size_bank_name_30sp"
+        style="@style/TextAppearance_title"
         android:paddingTop="75dp"
         app:layout_constraintBottom_toTopOf="@id/currentBalanceDisplay"
         app:layout_constraintHorizontal_bias="1.0"
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

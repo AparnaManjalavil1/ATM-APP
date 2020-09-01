@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/exalture"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".DepositOrWithdrawActivity" />
         <activity android:name=".TransactionDetailsActivity" />
         <activity android:name=".TransactionSuccessful" />
         <activity android:name=".PinChangeActivity" />
@@ -30,8 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WithdrawActivity" />
-        <activity android:name=".DepositActivity" />
+
         <activity android:name=".OthersActivity" />
         <activity
             android:name=".PinNumberActivity"

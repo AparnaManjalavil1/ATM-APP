@@ -14,8 +14,8 @@ data class MiniStatementEntity(
     @ColumnInfo(name = "ACCOUNT_NUMBER")
     var transactionAccountNumber: Long,
 
-    @ColumnInfo(name="TIME")
-    var transactionTime:String,
+    @ColumnInfo(name = "TIME")
+    var transactionTime: String,
 
     @ColumnInfo(name = "DATE")
     var transactionDate: String,

@@ -37,6 +37,4 @@ interface DetailsInterface {
     suspend fun isPhoneNumberExist(phoneNumber: Long): Boolean
 
 
-
-
 }

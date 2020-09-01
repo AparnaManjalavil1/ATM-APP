@@ -54,7 +54,11 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
 
 
                         this@AccountNumberActivity.runOnUiThread {
-                            Toast.makeText(this@AccountNumberActivity, resources.getString(R.string.error_invalid_account_number), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@AccountNumberActivity,
+                                resources.getString(R.string.error_invalid_account_number),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             enterAccountNumber.text?.clear()
 
 
@@ -72,8 +76,7 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
                     enterAccountNumber.requestFocus()
                     enterAccountNumber.error =
                         resources.getString(R.string.error_empty_account_number)
-                }
-                else if(stringAccountNumber.trim().length < 10){
+                } else if (stringAccountNumber.trim().length < 10) {
                     enterAccountNumber.requestFocus()
                     enterAccountNumber.error =
                         resources.getString(R.string.error_invalid_account_number)

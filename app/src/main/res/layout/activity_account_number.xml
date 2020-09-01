@@ -12,12 +12,7 @@
 
     <TextView
         android:id="@+id/bank_name_account_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/text_bank_name"
-        android:textColor="@color/colorWhiteBankName"
-        android:textSize="@dimen/size_bank_name_30sp"
+       style="@style/TextAppearance_title"
         app:layout_constraintBottom_toTopOf="@id/enter_account_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

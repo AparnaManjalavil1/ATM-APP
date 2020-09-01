@@ -83,7 +83,7 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                             transferIntent.putExtra("transaction_id", uniqueId)
                             transferIntent.putExtra("transaction_amount", amountToTransfer)
                             transferIntent.putExtra(
-                               "transaction_account_number",
+                                "transaction_account_number",
                                 accountNumberToTransfer
                             )
                             startActivity(transferIntent)
@@ -118,8 +118,7 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
             } catch (ex: Exception) {
                 if (stringAccountNumberToTransfer.trim()
                         .isEmpty() && stringAmountToTransfer.trim().isEmpty()
-                )
-                {
+                ) {
 
                     enterAccountNumberToTransfer.requestFocus()
                     enterAccountNumberToTransfer.error =
@@ -128,15 +127,13 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                         resources.getString(R.string.error_amount_to_transfer)
 
 
-                }
-                else if(stringAccountNumberToTransfer.trim()
+                } else if (stringAccountNumberToTransfer.trim()
                         .isEmpty()
-                ){
+                ) {
                     enterAccountNumberToTransfer.requestFocus()
                     enterAccountNumberToTransfer.error =
                         resources.getString(R.string.error_invalid_account_number)
-                }
-                else if((stringAmountToTransfer.trim().isEmpty())){
+                } else if ((stringAmountToTransfer.trim().isEmpty())) {
                     enterAmountToTransfer.requestFocus()
                     enterAmountToTransfer.error =
                         resources.getString(R.string.error_amount_to_transfer)
@@ -152,9 +149,10 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
 
         }
         enterAmountToTransfer.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
-            if(enterAccountNumberToTransfer.length()==0&&enterAmountToTransfer.length()!=0){
+            if (enterAccountNumberToTransfer.length() == 0 && enterAmountToTransfer.length() != 0) {
                 enterAccountNumberToTransfer.requestFocus()
-                enterAccountNumberToTransfer.error=resources.getString(R.string.error_invalid_account_number)
+                enterAccountNumberToTransfer.error =
+                    resources.getString(R.string.error_invalid_account_number)
                 enterAmountToTransfer.text?.clear()
             }
             if (keyEvent.action == KeyEvent.ACTION_DOWN) {

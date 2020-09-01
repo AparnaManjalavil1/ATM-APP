@@ -21,9 +21,11 @@
         <item name="android:textColor">@color/colorHighLight</item>
     </style>
     <style name="TextAppearance_title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:text">@string/text_bank_name</item>
         <item name="android:textColor">@color/colorWhiteBankName</item>
-        <item name="android:textSize">@dimen/size_bank_name_30sp</item>
+        <item name="android:textSize">@dimen/size_bank_name_21sp</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 

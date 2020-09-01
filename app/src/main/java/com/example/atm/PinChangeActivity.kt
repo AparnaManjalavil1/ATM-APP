@@ -50,7 +50,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
 
             try {
-                if (stringPinChange.length == 4&& stringPinConfirmation.isNotEmpty()) {
+                if (stringPinChange.length == 4 && stringPinConfirmation.isNotEmpty()) {
 
                     val pinChangeNumber = Integer.parseInt(stringPinChange)
                     val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
@@ -60,23 +60,22 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                     GlobalScope.launch {
                         val oldPassword = db?.details()?.getPassword(mAccountNumber)
                         if (pinChangeNumber != oldPassword!!) {
-                                if (pinChangeNumber == pinConfirmationNumber) {
-                                    db?.details()?.changePassword(pinChangeNumber, mAccountNumber)
-                                    this@PinChangeActivity.runOnUiThread { showDialog() }
+                            if (pinChangeNumber == pinConfirmationNumber) {
+                                db?.details()?.changePassword(pinChangeNumber, mAccountNumber)
+                                this@PinChangeActivity.runOnUiThread { showDialog() }
 
-                                } else {
-                                    this@PinChangeActivity.runOnUiThread {
-                                        ToastAndIntent().toast(
-                                            this@PinChangeActivity,
-                                            resources.getString(R.string.error_pin_mismatch)
-                                        )
-                                        enterPinToChange.requestFocus()
-                                        enterPinToChange.text?.clear()
-                                        enterPinConfirmation.text?.clear()
-                                    }
-
+                            } else {
+                                this@PinChangeActivity.runOnUiThread {
+                                    ToastAndIntent().toast(
+                                        this@PinChangeActivity,
+                                        resources.getString(R.string.error_pin_mismatch)
+                                    )
+                                    enterPinToChange.requestFocus()
+                                    enterPinToChange.text?.clear()
+                                    enterPinConfirmation.text?.clear()
                                 }
 
+                            }
 
 
                         } else {
@@ -97,35 +96,29 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                 ) {
                     enterPinToChange.requestFocus()
                     enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
-                    enterPinConfirmation.error = resources.getString(R.string.error_empty_pin_number)
+                    enterPinConfirmation.error =
+                        resources.getString(R.string.error_empty_pin_number)
 
-                }
-                else if (stringPinChange.length in 3 downTo 1 ) {
+                } else if (stringPinChange.length in 3 downTo 1) {
 
                     enterPinToChange.text?.clear()
                     enterPinConfirmation.text?.clear()
                     enterPinConfirmation.requestFocus()
-                    enterPinConfirmation.error=resources.getString(R.string.error_invalid_length)
+                    enterPinConfirmation.error = resources.getString(R.string.error_invalid_length)
 
 
-
-
-
-                }
-               else if (stringPinConfirmation.trim().isEmpty()) {
+                } else if (stringPinConfirmation.trim().isEmpty()) {
                     enterPinConfirmation.requestFocus()
-                    enterPinConfirmation.error = resources.getString(R.string.error_empty_pin_number)
-                }
-                else if (stringPinChange.trim().isEmpty()) {
+                    enterPinConfirmation.error =
+                        resources.getString(R.string.error_empty_pin_number)
+                } else if (stringPinChange.trim().isEmpty()) {
                     enterPinToChange.requestFocus()
                     enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                 }
-            }catch(ex:NumberFormatException){
+            } catch (ex: NumberFormatException) {
 
 
             }
-
-
 
 
         }
@@ -137,28 +130,28 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
 
         enterPinConfirmation.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
-            if (enterPinToChange.length()==0&&enterPinConfirmation.length()!=0) {
+            if (enterPinToChange.length() == 0 && enterPinConfirmation.length() != 0) {
                 enterPinToChange.requestFocus()
-                enterPinToChange.error=resources.getString(R.string.error_empty_pin_number)
+                enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                 enterPinConfirmation.text?.clear()
 
 
             }
 
-                if (keyEvent.action == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                        readNewPinNumber()
-                        val imm =
-                            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(view.windowToken, 0)
-                        return@OnKeyListener true
-                    }
+            if (keyEvent.action == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    readNewPinNumber()
+                    val imm =
+                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                    return@OnKeyListener true
                 }
+            }
 
 
-                false
+            false
 
-            })
+        })
 
         buttonCancelPinChange.setOnClickListener {
             SharedPreferenceAccess(this).clearPreference()
