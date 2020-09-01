@@ -25,28 +25,27 @@ class TransactionDetailsActivity : AppCompatActivity() {
         val showRemark = receivedData?.getString("remark")
         val showAmount = receivedData?.getInt("amount")
         val showTime = receivedData?.getString("time")
-        showTransactionDate.text = showDate
-        showTransactionTime.text = showTime
-        showTransactionRemark.text = showRemark
+        showTransactionDate.text = resources.getString(R.string.show_date,showDate)
+        showTransactionTime.text = resources.getString(R.string.show_time,showTime)
+        showTransactionRemark.text = resources.getString(R.string.show_remark,showRemark)
         if (showRemark == debit) {
             showTransactionAccount.text = getString(R.string.show_atm)
             showTransactionAmount.text = showAmount.toString()
         } else if (showRemark == credit) {
-            showTransactionAccount.text = mAccountNumber.toString()
-            showTransactionAmount.text = showAmount.toString()
+            showTransactionAccount.text = resources.getString(R.string.transfer_account_number,mAccountNumber.toString())
+            showTransactionAmount.text = resources.getString(R.string.show_amount,showAmount.toString())
         } else if (showRemark == transfer) {
 
-            showTransactionAccount.text = mAccountNumberToTransfer.toString()
-            showTransactionAmount.text = showAmount.toString()
+            showTransactionAccount.text = resources.getString(R.string.transfer_account_number,mAccountNumberToTransfer.toString())
+            showTransactionAmount.text = resources.getString(R.string.show_amount,showAmount.toString())
         } else
             showTransactionAccount.error =
                 resources.getString(R.string.error_invalid_account_number)
 
 
         btnCancelTransactionDetails.setOnClickListener {
-            SharedPreferenceAccess(this).clearPreference()
             val transactionDetailsIntent =
-                Intent(this@TransactionDetailsActivity, AccountNumberActivity::class.java)
+                Intent(this@TransactionDetailsActivity, MiniStatementActivity::class.java)
             ToastAndIntent().intent(transactionDetailsIntent)
             startActivity(transactionDetailsIntent)
             finish()

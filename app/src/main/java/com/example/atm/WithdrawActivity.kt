@@ -25,8 +25,11 @@ class WithdrawActivity : AppCompatActivity(), CoroutineScope {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_withdraw)
         fun readDebitAmount() {
             val stringDebitAmount = enterDebitAmount.text.toString()
-            if (stringDebitAmount.trim().isEmpty())
+            if (stringDebitAmount.trim().isEmpty()) {
+                enterDebitAmount.requestFocus()
                 enterDebitAmount.error = resources.getString(R.string.enter_amount)
+
+            }
             else {
                 val debitAmount = Integer.parseInt(stringDebitAmount)
                 if (debitAmount % 100 == 0) {

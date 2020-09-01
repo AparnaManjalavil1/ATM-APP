@@ -57,9 +57,9 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                     if (accountNumberToTransfer != mAccountNumberFromTransfer) {
 
                         val amountAfterDebitTransfer = debitedBalance?.minus(amountToTransfer)
-                        if (amountAfterDebitTransfer!! >= 1000 && debitedBalance > amountToTransfer) {
+                        if (debitedBalance!! >= amountToTransfer) {
                             db?.details()?.updateBalance(
-                                amountAfterDebitTransfer,
+                                amountAfterDebitTransfer!!,
                                 mAccountNumberFromTransfer
                             )
                             val transactionDate = MiniStatementTable().setTransactionDate()
@@ -105,6 +105,7 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                                 resources.getString(R.string.error_transfer_denied),
                                 Toast.LENGTH_LONG
                             ).show()
+                            enterAccountNumberToTransfer.requestFocus()
                             enterAccountNumberToTransfer.text?.clear()
 
                         }
@@ -116,13 +117,32 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
 
             } catch (ex: Exception) {
                 if (stringAccountNumberToTransfer.trim()
-                        .isEmpty()
+                        .isEmpty() && stringAmountToTransfer.trim().isEmpty()
                 )
+                {
+
+                    enterAccountNumberToTransfer.requestFocus()
                     enterAccountNumberToTransfer.error =
-                        resources.getString(R.string.error_invalid_account_number)
-                else if (stringAmountToTransfer.trim().isEmpty())
+                        resources.getString(R.string.error_empty_account_number)
                     enterAmountToTransfer.error =
                         resources.getString(R.string.error_amount_to_transfer)
+
+
+                }
+                else if(stringAccountNumberToTransfer.trim()
+                        .isEmpty()
+                ){
+                    enterAccountNumberToTransfer.requestFocus()
+                    enterAccountNumberToTransfer.error =
+                        resources.getString(R.string.error_invalid_account_number)
+                }
+                else if((stringAmountToTransfer.trim().isEmpty())){
+                    enterAmountToTransfer.requestFocus()
+                    enterAmountToTransfer.error =
+                        resources.getString(R.string.error_amount_to_transfer)
+
+                }
+
 
             }
         }
@@ -132,6 +152,11 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
 
         }
         enterAmountToTransfer.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
+            if(enterAccountNumberToTransfer.length()==0&&enterAmountToTransfer.length()!=0){
+                enterAccountNumberToTransfer.requestFocus()
+                enterAccountNumberToTransfer.error=resources.getString(R.string.error_invalid_account_number)
+                enterAmountToTransfer.text?.clear()
+            }
             if (keyEvent.action == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     readTransferDetails()

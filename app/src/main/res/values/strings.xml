@@ -2,7 +2,7 @@
     <string name="app_name">E-ATM</string>
     <string name="error_invalid_account_number">Please Enter  Valid Account Number</string>
     <string name="text_double_exit">Please click BACK again to exit</string>
-    <string name="text_bank_name">EXALTURE BANK INDIA</string>
+    <string name="text_bank_name">EXALTURE BANK OF INDIA PVT. LTD.</string>
     <string name="select_transaction">SELECT TRANSACTION</string>
     <string name="text_account_number">ENTER YOUR ACCOUNT NUMBER</string>
     <string name="text_account_type">SELECT YOUR ACCOUNT TYPE</string>
@@ -24,7 +24,7 @@
     <string name="pin_number">Pin Number</string>
     <string name="pin_confirmation">Confirm Pin Number </string>
     <string name="error_pin_mismatch">Mismatch Password</string>
-    <string name="error_already_exist">Already Exist</string>
+    <string name="error_already_exist">Already Registered</string>
     <string name="dialog_ok">OK</string>
     <string name="amount">Amount</string>
     <string name="error_invalid_pin_number">Please Enter Valid Pin Number</string>
@@ -34,13 +34,13 @@
     <string name="balance_link">View Balance</string>
     <string name="insufficient_balance">Insufficient Balance</string>
     <string name="enter_number_to_transfer">ENTER ACCOUNT NUMBER TO TRANSFER</string>
-    <string name="error_something_went_wrong">Something went wrong....</string>
-    <string name="error_please_enter_value">Please enter value</string>
+    <string name="error_something_went_wrong">Something Went Wrong....</string>
+    <string name="error_please_enter_value">Please Enter Value</string>
     <string name="error_amount_to_transfer">Please Enter Amount To Transfer</string>
-    <string name="error_transfer_denied">Transfer to your own account is not possible</string>
-    <string name="error_insufficient_balance_to_transfer">Insufficient balance to transfer</string>
-    <string name="error_confirmation_pin_number">Please enter valid pin number</string>
-    <string name="error_invalid_length">Length should be 4</string>
+    <string name="error_transfer_denied">Transfer To Your Own Account Is Not Possible</string>
+    <string name="error_insufficient_balance_to_transfer">Insufficient Balance To Transfer</string>
+    <string name="error_confirmation_pin_number">Please Enter Valid Pin Number</string>
+    <string name="error_invalid_length">Length Should Be 4</string>
     <string name="transaction_date">Date</string>
     <string name="transaction_time">Time</string>
     <string name="transaction_remark">Remark</string>
@@ -49,7 +49,7 @@
     <string name="show_atm">ATM</string>
     <string name="dialog_title">UPDATE</string>
     <string name="dialog_message">UPDATE SUCCESSFULLY</string>
-    <string name="enter_new_phone_number">ENTER NEW PHONE NUMBER</string>
+    <string name="enter_new_phone_number">ENTER NEW PHONE NUMBER PAGE</string>
     <string name="new_phone_number">NEW PHONE NUMBER</string>
     <string name="show_debit">Dr</string>
     <string name="show_credit">Cr</string>
@@ -60,5 +60,12 @@
     <string name="to">To</string>
     <string name="error_try_again">Try Again After Few Seconds!!!</string>
     <string name="transfer_account_number">AccountNumber : %1s</string>
-    <string name="error_valid_phone_number">Sorry,Enter valid phone number</string>
+    <string name="show_date">Date : %1s</string>
+    <string name="show_time">Time : %1s</string>
+    <string name="show_remark">Remark : %1s</string>
+    <string name="show_amount">Amount : %1s</string>
+    <string name="error_invalid_phone_number">Please Enter Valid Phone Number</string>
+    <string name="error_empty_phone_number">Phone Number Cannot Be Empty</string>
+    <string name="error_empty_account_number">Account Number Cannot Be Empty</string>
+    <string name="error_empty_pin_number">Pin Number Cannot Be Empty</string>
 </resources>

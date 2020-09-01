@@ -67,8 +67,14 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
 
             } catch (ex: NumberFormatException) {
                 if (stringAccountNumber.trim()
-                        .isEmpty() || stringAccountNumber.trim().length < 10
+                        .isEmpty()
                 ) {
+                    enterAccountNumber.requestFocus()
+                    enterAccountNumber.error =
+                        resources.getString(R.string.error_empty_account_number)
+                }
+                else if(stringAccountNumber.trim().length < 10){
+                    enterAccountNumber.requestFocus()
                     enterAccountNumber.error =
                         resources.getString(R.string.error_invalid_account_number)
                 }

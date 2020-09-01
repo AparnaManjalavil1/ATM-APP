@@ -92,12 +92,14 @@ class MiniStatementActivity : AppCompatActivity(), CoroutineScope,
 
     override fun onItemClick(mini: MiniStatement, position: Int) {
         val itemClickIntent = Intent(this, TransactionDetailsActivity::class.java)
+        //itemClickIntent.putExtra("details",Array<String>(4){mini.transactionDate,mini.})
         itemClickIntent.putExtra("date", mini.transactionDate)
         itemClickIntent.putExtra("time", mini.transactionTime)
         itemClickIntent.putExtra("remark", mini.remark)
         itemClickIntent.putExtra("amount", mini.amount)
 
         startActivity(itemClickIntent)
+        finish()
     }
 
     override fun onBackPressed() {

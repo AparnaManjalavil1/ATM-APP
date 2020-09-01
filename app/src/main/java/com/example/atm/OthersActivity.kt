@@ -53,47 +53,60 @@ class OthersActivity : AppCompatActivity(), CoroutineScope {
             if (stringPhoneNumber.trim()
                     .isEmpty()
             ) {
+                enterPhoneNumberChange.requestFocus()
                 enterPhoneNumberChange.error =
-                    resources.getString(R.string.error_valid_phone_number)
+                    resources.getString(R.string.error_empty_phone_number)
             } else {
                 val phoneNumber = stringPhoneNumber.toLong()
                 val mAccountNumber =
                     SharedPreferenceAccess(this).getInstanceObject(this).getPreference()
                 db = DetailsDatabase.getAppDataBase(this)
                 GlobalScope.launch {
-                    if ((!(db?.details()
-                            ?.isPhoneNumberExist(phoneNumber)!!)) && stringPhoneNumber.trim().length == 10
-                    ) {
-                        db?.details()?.updatePhoneNumber(phoneNumber, mAccountNumber)
-                        this@OthersActivity.runOnUiThread { showDialog() }
+                    if (stringPhoneNumber.trim().length == 10) {
+                        if ((!(db?.details()
+                                ?.isPhoneNumberExist(phoneNumber)!!))
+                        ) {
+                            db?.details()?.updatePhoneNumber(phoneNumber, mAccountNumber)
+                            this@OthersActivity.runOnUiThread { showDialog() }
 
 
+                        } else {
+                            this@OthersActivity.runOnUiThread {
+                                ToastAndIntent().toast(
+                                    this@OthersActivity,
+                                    resources.getString(R.string.error_already_exist)
+                                )
+                                enterPhoneNumberChange.text?.clear()
+                            }
+                        }
                     } else {
                         this@OthersActivity.runOnUiThread {
                             ToastAndIntent().toast(
                                 this@OthersActivity,
-                                resources.getString(R.string.error_valid_phone_number)
+                                resources.getString(R.string.error_invalid_phone_number)
                             )
-                            enterPhoneNumberChange.text?.clear()
                         }
                     }
                 }
+
+
             }
-
-
         }
 
         buttonPhoneNumberChange.setOnClickListener {
             readNewPhoneNumber()
         }
-        enterPhoneNumberChange.setOnKeyListener(View.OnKeyListener { view, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                readNewPhoneNumber()
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-                return@OnKeyListener true
+        enterPhoneNumberChange.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
+            if (keyEvent.action == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    readNewPhoneNumber()
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                    return@OnKeyListener true
+                }
             }
-            false
+                false
+
         })
         buttonCancelPhoneNumberChange.setOnClickListener {
             SharedPreferenceAccess(this).clearPreference()

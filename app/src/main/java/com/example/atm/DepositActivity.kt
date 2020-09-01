@@ -27,8 +27,10 @@ class DepositActivity : AppCompatActivity(), CoroutineScope {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_deposit)
         fun readDepositAmount() {
             val stringCreditAmount = enterDepositAmount.text.toString()
-            if (stringCreditAmount.trim().isEmpty())
+            if (stringCreditAmount.trim().isEmpty()) {
+                enterDepositAmount.requestFocus()
                 enterDepositAmount.error = resources.getString(R.string.enter_amount)
+            }
             else {
                 val creditAmount = Integer.parseInt(stringCreditAmount)
                 if (creditAmount % 100 == 0) {

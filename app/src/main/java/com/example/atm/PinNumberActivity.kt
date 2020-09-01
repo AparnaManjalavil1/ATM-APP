@@ -30,7 +30,8 @@ class PinNumberActivity : AppCompatActivity(), CoroutineScope {
         fun readPinNumber() {
             val stringPassword = enterPassword.text.toString()
             if (stringPassword.trim().isEmpty()) {
-                enterPassword.error = resources.getString(R.string.error_invalid_pin_number)
+                enterPassword.requestFocus()
+                enterPassword.error = resources.getString(R.string.error_empty_pin_number)
 
 
             } else {

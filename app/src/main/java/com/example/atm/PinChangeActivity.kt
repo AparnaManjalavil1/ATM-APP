@@ -47,6 +47,8 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
         fun readNewPinNumber() {
             val stringPinChange = enterPinToChange.text.toString()
             val stringPinConfirmation = enterPinConfirmation.text.toString()
+
+
             try {
                 if (stringPinChange.length == 4) {
 
@@ -68,6 +70,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                                         this@PinChangeActivity,
                                         resources.getString(R.string.error_pin_mismatch)
                                     )
+                                    enterPinToChange.requestFocus()
                                     enterPinToChange.text?.clear()
                                     enterPinConfirmation.text?.clear()
                                 }
@@ -80,28 +83,49 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                                     this@PinChangeActivity,
                                     resources.getString(R.string.error_already_exist)
                                 )
+                                enterPinToChange.requestFocus()
                                 enterPinToChange.text?.clear()
                                 enterPinConfirmation.text?.clear()
                             }
                         }
 
                     }
-                } else {
+                } else if (stringPinChange.trim().isEmpty() && stringPinConfirmation.trim()
+                        .isEmpty()
+                ) {
+                    enterPinToChange.requestFocus()
+                    enterPinToChange.error = getString(R.string.error_empty_pin_number)
+                    enterPinConfirmation.error = getString(R.string.error_empty_pin_number)
+
+                }
+                else if (stringPinChange.length in 3 downTo 1 ) {
 
                     enterPinToChange.text?.clear()
                     enterPinConfirmation.text?.clear()
-                    enterPinToChange.error = resources.getString(R.string.error_invalid_length)
+                    enterPinConfirmation.requestFocus()
+                    enterPinConfirmation.error=resources.getString(R.string.error_invalid_length)
+
+
+
+
 
                 }
+                else if (stringPinChange.trim().isEmpty()&&stringPinConfirmation.trim().isNotEmpty()) {
 
-            } catch (ex: Exception) {
-                if (stringPinChange.trim().isEmpty()) {
-                    enterPinToChange.error = getString(R.string.error_invalid_pin_number)
+                        enterPinToChange.error=getString(R.string.error_empty_pin_number)
+                        enterPinConfirmation.text?.clear()
+
+
                 } else if (stringPinConfirmation.trim().isEmpty()) {
-                    enterPinConfirmation.error = getString(R.string.error_confirmation_pin_number)
+
+                    enterPinConfirmation.error = getString(R.string.error_empty_pin_number)
                 }
+            }catch(ex:NumberFormatException){
+
 
             }
+
+
 
 
         }
@@ -110,17 +134,32 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
 
         }
+
+
         enterPinConfirmation.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
-            if (keyEvent.action == KeyEvent.ACTION_DOWN) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    readNewPinNumber()
-                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(view.windowToken, 0)
-                    return@OnKeyListener true
-                }
+            if (enterPinToChange.length()==0&&enterPinConfirmation.length()!=0) {
+                enterPinToChange.requestFocus()
+                enterPinToChange.error=getString(R.string.error_empty_pin_number)
+                enterPinConfirmation.text?.clear()
+
+
             }
-            false
-        })
+
+                if (keyEvent.action == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                        readNewPinNumber()
+                        val imm =
+                            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(view.windowToken, 0)
+                        return@OnKeyListener true
+                    }
+                }
+
+
+                false
+
+            })
+
         buttonCancelPinChange.setOnClickListener {
             SharedPreferenceAccess(this).clearPreference()
             val pinChangeCancelIntent =

@@ -10,6 +10,7 @@
         <item name="android:windowBackground">@drawable/splash_screen_backgroun</item>
         <item name="android:color">@color/colorWhite</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:text">@string/text_bank_name</item>
     </style>
     <style name="text_input_layout_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
       <item name="boxStrokeWidth">2dp</item>
