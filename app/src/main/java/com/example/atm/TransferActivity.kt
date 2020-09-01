@@ -83,7 +83,7 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                             transferIntent.putExtra("transaction_id", uniqueId)
                             transferIntent.putExtra("transaction_amount", amountToTransfer)
                             transferIntent.putExtra(
-                                "transaction_account_number",
+                               "transaction_account_number",
                                 accountNumberToTransfer
                             )
                             startActivity(transferIntent)

@@ -50,7 +50,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
 
             try {
-                if (stringPinChange.length == 4) {
+                if (stringPinChange.length == 4&& stringPinConfirmation.isNotEmpty()) {
 
                     val pinChangeNumber = Integer.parseInt(stringPinChange)
                     val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
@@ -60,22 +60,24 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                     GlobalScope.launch {
                         val oldPassword = db?.details()?.getPassword(mAccountNumber)
                         if (pinChangeNumber != oldPassword!!) {
-                            if (pinChangeNumber == pinConfirmationNumber) {
-                                db?.details()?.changePassword(pinChangeNumber, mAccountNumber)
-                                this@PinChangeActivity.runOnUiThread { showDialog() }
+                                if (pinChangeNumber == pinConfirmationNumber) {
+                                    db?.details()?.changePassword(pinChangeNumber, mAccountNumber)
+                                    this@PinChangeActivity.runOnUiThread { showDialog() }
 
-                            } else {
-                                this@PinChangeActivity.runOnUiThread {
-                                    ToastAndIntent().toast(
-                                        this@PinChangeActivity,
-                                        resources.getString(R.string.error_pin_mismatch)
-                                    )
-                                    enterPinToChange.requestFocus()
-                                    enterPinToChange.text?.clear()
-                                    enterPinConfirmation.text?.clear()
+                                } else {
+                                    this@PinChangeActivity.runOnUiThread {
+                                        ToastAndIntent().toast(
+                                            this@PinChangeActivity,
+                                            resources.getString(R.string.error_pin_mismatch)
+                                        )
+                                        enterPinToChange.requestFocus()
+                                        enterPinToChange.text?.clear()
+                                        enterPinConfirmation.text?.clear()
+                                    }
+
                                 }
 
-                            }
+
 
                         } else {
                             this@PinChangeActivity.runOnUiThread {
@@ -94,8 +96,8 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                         .isEmpty()
                 ) {
                     enterPinToChange.requestFocus()
-                    enterPinToChange.error = getString(R.string.error_empty_pin_number)
-                    enterPinConfirmation.error = getString(R.string.error_empty_pin_number)
+                    enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
+                    enterPinConfirmation.error = resources.getString(R.string.error_empty_pin_number)
 
                 }
                 else if (stringPinChange.length in 3 downTo 1 ) {
@@ -110,15 +112,13 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
 
                 }
-                else if (stringPinChange.trim().isEmpty()&&stringPinConfirmation.trim().isNotEmpty()) {
-
-                        enterPinToChange.error=getString(R.string.error_empty_pin_number)
-                        enterPinConfirmation.text?.clear()
-
-
-                } else if (stringPinConfirmation.trim().isEmpty()) {
-
-                    enterPinConfirmation.error = getString(R.string.error_empty_pin_number)
+               else if (stringPinConfirmation.trim().isEmpty()) {
+                    enterPinConfirmation.requestFocus()
+                    enterPinConfirmation.error = resources.getString(R.string.error_empty_pin_number)
+                }
+                else if (stringPinChange.trim().isEmpty()) {
+                    enterPinToChange.requestFocus()
+                    enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                 }
             }catch(ex:NumberFormatException){
 
@@ -139,7 +139,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
         enterPinConfirmation.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
             if (enterPinToChange.length()==0&&enterPinConfirmation.length()!=0) {
                 enterPinToChange.requestFocus()
-                enterPinToChange.error=getString(R.string.error_empty_pin_number)
+                enterPinToChange.error=resources.getString(R.string.error_empty_pin_number)
                 enterPinConfirmation.text?.clear()
 
 

@@ -14,9 +14,9 @@ class TransactionDetailsActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_transaction_details)
         val mAccountNumber = SharedPreferenceAccess(this).getInstanceObject(this).getPreference()
         val mAccountNumberToTransfer = SharedPreferenceAccess(
-            "",
+            "accountNumberToTransfer",
             this@TransactionDetailsActivity
-        ).getInstanceObject(this@TransactionDetailsActivity).getPreference()
+        ).getPreference()
         val credit = ConfigProperties().getConfigValue(this, "depositRemark")
         val debit = ConfigProperties().getConfigValue(this, "withdrawRemark")
         val transfer = ConfigProperties().getConfigValue(this, "transferRemark")

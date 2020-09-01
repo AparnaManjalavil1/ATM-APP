@@ -39,7 +39,7 @@ class SharedPreferenceAccess() {
         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
         if(sharedPreferences!!.contains(sharedPreferenceAccountNumber))
             editor.putLong(setAccess, accountNumber)
-        else
+        else(sharedPreferences!!.contains(sharedPreferenceAccountNumberToTransfer))
             editor.putLong(setTransferAccountNumber,accountNumber)
         editor.apply()
     }
