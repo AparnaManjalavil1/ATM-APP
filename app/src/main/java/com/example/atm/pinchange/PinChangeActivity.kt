@@ -1,15 +1,21 @@
-package com.example.atm
+package com.example.atm.pinchange
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.atm.R
+import com.example.atm.accountdetails.AccountNumberActivity
 import com.example.atm.databinding.ActivityPinchangeBinding
+import com.example.atm.roomdatabase.DetailsDatabase
+import com.example.atm.util.ConfigUtil
+import com.example.atm.util.SharedPreferenceAccess
 import kotlinx.android.synthetic.main.activity_pinchange.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -23,7 +29,9 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var binding: ActivityPinchangeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_pinchange)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_pinchange
+        )
         fun showDialog() {
             val builder = AlertDialog.Builder(this@PinChangeActivity)
             builder.setTitle(R.string.dialog_title)
@@ -34,24 +42,19 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                         this@PinChangeActivity,
                         AccountNumberActivity::class.java
                     )
-                ToastAndIntent().intent(pinChangeIntent)
+                ConfigUtil().intent(pinChangeIntent)
                 startActivity(pinChangeIntent)
-
             }
             val alertDialog: AlertDialog = builder.create()
             alertDialog.setCancelable(false)
             alertDialog.show()
-
         }
 
         fun readNewPinNumber() {
             val stringPinChange = enterPinToChange.text.toString()
             val stringPinConfirmation = enterPinConfirmation.text.toString()
-
-
             try {
                 if (stringPinChange.length == 4 && stringPinConfirmation.isNotEmpty()) {
-
                     val pinChangeNumber = Integer.parseInt(stringPinChange)
                     val pinConfirmationNumber = Integer.parseInt(stringPinConfirmation)
                     val mAccountNumber =
@@ -66,7 +69,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
 
                             } else {
                                 this@PinChangeActivity.runOnUiThread {
-                                    ToastAndIntent().toast(
+                                    ConfigUtil().toast(
                                         this@PinChangeActivity,
                                         resources.getString(R.string.error_pin_mismatch)
                                     )
@@ -74,13 +77,10 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                                     enterPinToChange.text?.clear()
                                     enterPinConfirmation.text?.clear()
                                 }
-
                             }
-
-
                         } else {
                             this@PinChangeActivity.runOnUiThread {
-                                ToastAndIntent().toast(
+                                ConfigUtil().toast(
                                     this@PinChangeActivity,
                                     resources.getString(R.string.error_already_exist)
                                 )
@@ -89,7 +89,6 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                                 enterPinConfirmation.text?.clear()
                             }
                         }
-
                     }
                 } else if (stringPinChange.trim().isEmpty() && stringPinConfirmation.trim()
                         .isEmpty()
@@ -98,15 +97,11 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                     enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                     enterPinConfirmation.error =
                         resources.getString(R.string.error_empty_pin_number)
-
                 } else if (stringPinChange.length in 3 downTo 1) {
-
                     enterPinToChange.text?.clear()
                     enterPinConfirmation.text?.clear()
                     enterPinConfirmation.requestFocus()
                     enterPinConfirmation.error = resources.getString(R.string.error_invalid_length)
-
-
                 } else if (stringPinConfirmation.trim().isEmpty()) {
                     enterPinConfirmation.requestFocus()
                     enterPinConfirmation.error =
@@ -116,28 +111,18 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                     enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                 }
             } catch (ex: NumberFormatException) {
-
-
+                Log.i(ConfigUtil().logCatTag, ConfigUtil().logCatMessage)
             }
-
-
         }
         buttonPinChange.setOnClickListener {
             readNewPinNumber()
-
-
         }
-
-
         enterPinConfirmation.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
             if (enterPinToChange.length() == 0 && enterPinConfirmation.length() != 0) {
                 enterPinToChange.requestFocus()
                 enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                 enterPinConfirmation.text?.clear()
-
-
             }
-
             if (keyEvent.action == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     readNewPinNumber()
@@ -147,22 +132,17 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                     return@OnKeyListener true
                 }
             }
-
-
             false
-
         })
-
         buttonCancelPinChange.setOnClickListener {
             SharedPreferenceAccess(this).clearPreference()
             val pinChangeCancelIntent =
                 Intent(this@PinChangeActivity, AccountNumberActivity::class.java)
-            ToastAndIntent().intent(pinChangeCancelIntent)
+            ConfigUtil().intent(pinChangeCancelIntent)
             startActivity(pinChangeCancelIntent)
             finish()
         }
     }
-
 
     override fun onBackPressed() {
 
