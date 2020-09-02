@@ -50,26 +50,19 @@ class PinNumberActivity : AppCompatActivity(), CoroutineScope {
                         db?.details()?.isPasswordExist(mAccountNumber, password)
                     if (passwordExist!!) {
                         when (intent.getIntExtra(buttonClick, 0)) {
-                            R.id.btnDeposit -> {
-                                val depositIntent = Intent(
+                            R.id.btnDeposit, R.id.btnWithdraw -> {
+                                val depositOrWithdrawIntent = Intent(
                                     this@PinNumberActivity,
                                     DepositOrWithdrawActivity::class.java
                                 )
-                                depositIntent.putExtra("Deposit", 1)
 
+                                depositOrWithdrawIntent.putExtra(
+                                    "DepositOrWithdraw",
+                                    intent.getIntExtra(buttonClick, 0)
+                                )
 
                                 startActivity(
-                                    depositIntent
-                                )
-                            }
-                            R.id.btnWithdraw -> {
-                                val withdrawIntent = Intent(
-                                    this@PinNumberActivity,
-                                    DepositOrWithdrawActivity::class.java
-                                )
-                                withdrawIntent.putExtra("withdraw", 2)
-                                startActivity(
-                                    withdrawIntent
+                                    depositOrWithdrawIntent
                                 )
                             }
                             R.id.btnTransfer ->
@@ -186,6 +179,7 @@ class PinNumberActivity : AppCompatActivity(), CoroutineScope {
 
         }
     }
+
 
     override fun onBackPressed() {
 

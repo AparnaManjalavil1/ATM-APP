@@ -25,9 +25,6 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_deposit_or_withdraw)
-
-        val showDeposit = intent?.getIntExtra("Deposit", 0)
-        val showWithdraw = intent?.getIntExtra("withdraw", 0)
         fun readAmount() {
             val stringAmount = enterAmount.text.toString()
             if (stringAmount.trim().isEmpty()) {
@@ -49,38 +46,17 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
                         val transactionDate = MiniStatementTable().setTransactionDate()
                         val transactionTime = MiniStatementTable().setTransactionTime()
                         val uniqueId = db?.transactionDetails()?.random()
-                        if (showDeposit == 1) {
-
-                            val creditAfterAmount = amount + balance!!
-                            db?.details()?.updateBalance(creditAfterAmount, mAccountNumber)
-                            db?.transactionDetails()?.insertTransactionDetails(
-                                MiniStatementEntity(
-                                    uniqueId!!,
-                                    mAccountNumber,
-                                    transactionTime,
-                                    transactionDate,
-                                    "credit",
-                                    amount
-                                )
-                            )
-                            startActivity(
-                                Intent(
-                                    this@DepositOrWithdrawActivity,
-                                    BalanceActivity::class.java
-                                )
-                            )
-
-                        } else if (showWithdraw == 2) {
-                            if (amount <= balance!!) {
-                                val debitAfterAmount = balance - amount
-                                db?.details()?.updateBalance(debitAfterAmount, mAccountNumber)
+                        when (intent.getIntExtra("DepositOrWithdraw", 0)) {
+                            R.id.btnDeposit -> {
+                                val creditAfterAmount = amount + balance!!
+                                db?.details()?.updateBalance(creditAfterAmount, mAccountNumber)
                                 db?.transactionDetails()?.insertTransactionDetails(
                                     MiniStatementEntity(
                                         uniqueId!!,
                                         mAccountNumber,
                                         transactionTime,
                                         transactionDate,
-                                        "debit",
+                                        "credit",
                                         amount
                                     )
                                 )
@@ -90,16 +66,39 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
                                         BalanceActivity::class.java
                                     )
                                 )
-                            } else {
-                                this@DepositOrWithdrawActivity.runOnUiThread {
-                                    ToastAndIntent().toast(
-                                        this@DepositOrWithdrawActivity,
-                                        resources.getString(R.string.insufficient_balance)
+
+                            }
+                            R.id.btnWithdraw -> {
+                                if (amount <= balance!!) {
+                                    val debitAfterAmount = balance - amount
+                                    db?.details()?.updateBalance(debitAfterAmount, mAccountNumber)
+                                    db?.transactionDetails()?.insertTransactionDetails(
+                                        MiniStatementEntity(
+                                            uniqueId!!,
+                                            mAccountNumber,
+                                            transactionTime,
+                                            transactionDate,
+                                            "debit",
+                                            amount
+                                        )
                                     )
-                                    enterAmount.text?.clear()
+                                    startActivity(
+                                        Intent(
+                                            this@DepositOrWithdrawActivity,
+                                            BalanceActivity::class.java
+                                        )
+                                    )
+                                } else {
+                                    this@DepositOrWithdrawActivity.runOnUiThread {
+                                        ToastAndIntent().toast(
+                                            this@DepositOrWithdrawActivity,
+                                            resources.getString(R.string.insufficient_balance)
+                                        )
+                                        enterAmount.text?.clear()
+                                    }
+
+
                                 }
-
-
                             }
                         }
                     }
