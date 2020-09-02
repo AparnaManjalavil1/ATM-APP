@@ -6,24 +6,24 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".DetailsDatabaseInstance"
+        android:name=".roomdatabase.DetailsDatabaseInstance"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/exalture"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".DepositOrWithdrawActivity" />
-        <activity android:name=".TransactionDetailsActivity" />
-        <activity android:name=".TransactionSuccessful" />
-        <activity android:name=".PinChangeActivity" />
+        <activity android:name=".depositorwithdraw.DepositOrWithdrawActivity" />
+        <activity android:name=".ministatement.TransactionDetailsActivity" />
+        <activity android:name=".transfer.TransactionSuccessful" />
+        <activity android:name=".pinchange.PinChangeActivity" />
         <activity
-            android:name=".MiniStatementActivity"
+            android:name=".ministatement.MiniStatementActivity"
             android:configChanges="screenSize" />
-        <activity android:name=".BalanceActivity" />
-        <activity android:name=".TransferActivity" />
+        <activity android:name=".depositorwithdraw.BalanceActivity" />
+        <activity android:name=".transfer.TransferActivity" />
         <activity
-            android:name=".SplashscreenActivity"
+            android:name=".splashscreen.SplashscreenActivity"
             android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,15 +32,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".OthersActivity" />
+        <activity android:name=".others.OthersActivity" />
         <activity
-            android:name=".PinNumberActivity"
+            android:name=".readpinnumber.PinNumberActivity"
             android:finishOnTaskLaunch="true" />
         <activity
-            android:name=".AccountNumberActivity"
+            android:name=".accountdetails.AccountNumberActivity"
             android:finishOnTaskLaunch="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".dashboard.MainActivity"
             android:finishOnTaskLaunch="true" />
 
         <meta-data

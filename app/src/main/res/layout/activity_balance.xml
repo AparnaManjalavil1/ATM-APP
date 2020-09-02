@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".BalanceActivity">
+    tools:context=".depositorwithdraw.BalanceActivity">
     <TextView
         android:id="@+id/bank_name_balance"
         style="@style/TextAppearance_title"

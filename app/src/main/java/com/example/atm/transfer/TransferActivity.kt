@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.transfer
 
 import android.content.Context
 import android.content.Intent
@@ -6,10 +6,15 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.atm.*
+import com.example.atm.accountdetails.AccountNumberActivity
 import com.example.atm.databinding.ActivityTransferBinding
+import com.example.atm.ministatement.MiniStatementEntity
+import com.example.atm.roomdatabase.DetailsDatabase
+import com.example.atm.util.ConfigUtil
+import com.example.atm.util.SharedPreferenceAccess
 import kotlinx.android.synthetic.main.activity_transfer.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -23,7 +28,9 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_transfer)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_transfer
+        )
 
         db = DetailsDatabase.getAppDataBase(this)
         val mAccountNumberFromTransfer =
@@ -36,34 +43,31 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
 
         }
 
-
-
         fun readTransferDetails() {
             val stringAccountNumberToTransfer = enterAccountNumberToTransfer.text.toString()
             val stringAmountToTransfer = enterAmountToTransfer.text.toString()
             try {
                 val accountNumberToTransfer = stringAccountNumberToTransfer.toLong()
-                SharedPreferenceAccess("accountNumberToTransfer", this).setPreference(
+                SharedPreferenceAccess(
+                    ConfigUtil().sharedPreferenceName,
+                    this
+                ).setPreference(
                     accountNumberToTransfer
                 )
-
-
                 val amountToTransfer = Integer.parseInt(stringAmountToTransfer)
-                val transfer = ConfigProperties().getConfigValue(this, "transferRemark")
-
                 GlobalScope.launch {
                     val debitedBalance = db?.details()?.getAmount(mAccountNumberFromTransfer)
-
                     if (accountNumberToTransfer != mAccountNumberFromTransfer) {
-
                         val amountAfterDebitTransfer = debitedBalance?.minus(amountToTransfer)
                         if (debitedBalance!! >= amountToTransfer) {
                             db?.details()?.updateBalance(
                                 amountAfterDebitTransfer!!,
                                 mAccountNumberFromTransfer
                             )
-                            val transactionDate = MiniStatementTable().setTransactionDate()
-                            val transactionTime = MiniStatementTable().setTransactionTime()
+                            val transactionDate = ConfigUtil()
+                                .getTransactionDate()
+                            val transactionTime = ConfigUtil()
+                                .getTransactionTime()
                             val uniqueId = db?.transactionDetails()?.random()
                             db?.transactionDetails()?.insertTransactionDetails(
                                 MiniStatementEntity(
@@ -71,7 +75,7 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                                     mAccountNumberFromTransfer,
                                     transactionTime,
                                     transactionDate,
-                                    transfer,
+                                    ConfigUtil().transferRemark,
                                     amountToTransfer
                                 )
                             )
@@ -80,52 +84,43 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                                 this@TransferActivity,
                                 TransactionSuccessful::class.java
                             )
-                            transferIntent.putExtra("transaction_id", uniqueId)
-                            transferIntent.putExtra("transaction_amount", amountToTransfer)
+                            transferIntent.putExtra(ConfigUtil().transactionId, uniqueId)
+                            transferIntent.putExtra(ConfigUtil().amount, amountToTransfer)
                             transferIntent.putExtra(
-                                "transaction_account_number",
+                                ConfigUtil().transactionAccountNumber,
                                 accountNumberToTransfer
                             )
                             startActivity(transferIntent)
                         } else {
                             this@TransferActivity.runOnUiThread {
-                                Toast.makeText(
+                                ConfigUtil().toast(
                                     this@TransferActivity,
-                                    resources.getString(R.string.error_insufficient_balance_to_transfer),
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                    resources.getString(R.string.error_insufficient_balance_to_transfer)
+                                )
                                 enterAmountToTransfer.text?.clear()
                             }
-
                         }
                     } else {
                         this@TransferActivity.runOnUiThread {
-                            Toast.makeText(
+                            ConfigUtil().toast(
                                 this@TransferActivity,
-                                resources.getString(R.string.error_transfer_denied),
-                                Toast.LENGTH_LONG
-                            ).show()
+                                resources.getString(R.string.error_transfer_denied)
+                            )
                             enterAccountNumberToTransfer.requestFocus()
                             enterAccountNumberToTransfer.text?.clear()
-
                         }
-
                     }
-
                 }
-
 
             } catch (ex: Exception) {
                 if (stringAccountNumberToTransfer.trim()
                         .isEmpty() && stringAmountToTransfer.trim().isEmpty()
                 ) {
-
                     enterAccountNumberToTransfer.requestFocus()
                     enterAccountNumberToTransfer.error =
                         resources.getString(R.string.error_empty_account_number)
                     enterAmountToTransfer.error =
                         resources.getString(R.string.error_amount_to_transfer)
-
 
                 } else if (stringAccountNumberToTransfer.trim()
                         .isEmpty()
@@ -139,14 +134,10 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
                         resources.getString(R.string.error_amount_to_transfer)
 
                 }
-
-
             }
         }
         buttonTransfer.setOnClickListener {
             readTransferDetails()
-
-
         }
         enterAmountToTransfer.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
             if (enterAccountNumberToTransfer.length() == 0 && enterAmountToTransfer.length() != 0) {
@@ -158,7 +149,8 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
             if (keyEvent.action == KeyEvent.ACTION_DOWN) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     readTransferDetails()
-                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as
+                            InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
                     return@OnKeyListener true
                 }
@@ -169,7 +161,7 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
 
             val cancelTransferIntent =
                 Intent(this@TransferActivity, AccountNumberActivity::class.java)
-            ToastAndIntent().intent(cancelTransferIntent)
+            ConfigUtil().intent(cancelTransferIntent)
             startActivity(cancelTransferIntent)
             finish()
         }
@@ -178,6 +170,4 @@ class TransferActivity : AppCompatActivity(), CoroutineScope {
     override fun onBackPressed() {
 
     }
-
-
 }

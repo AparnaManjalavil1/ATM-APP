@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.roomdatabase
 
 import android.app.Application
 import androidx.room.Room

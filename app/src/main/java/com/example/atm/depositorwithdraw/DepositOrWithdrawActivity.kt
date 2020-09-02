@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.depositorwithdraw
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,13 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.atm.*
+import com.example.atm.accountdetails.AccountNumberActivity
 import com.example.atm.databinding.ActivityDepositOrWithdrawBinding
+import com.example.atm.ministatement.MiniStatementEntity
+import com.example.atm.roomdatabase.DetailsDatabase
+import com.example.atm.util.ConfigUtil
+import com.example.atm.util.SharedPreferenceAccess
 import kotlinx.android.synthetic.main.activity_deposit_or_withdraw.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -17,14 +23,14 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var binding: ActivityDepositOrWithdrawBinding
     private var db: DetailsDatabase? = null
     private lateinit var job: Job
-
-
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_deposit_or_withdraw)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_deposit_or_withdraw
+        )
         fun readAmount() {
             val stringAmount = enterAmount.text.toString()
             if (stringAmount.trim().isEmpty()) {
@@ -33,20 +39,25 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
             } else {
                 val amount = Integer.parseInt(stringAmount)
                 if (amount % 100 == 0) {
-
                     val mAccountNumber =
-                        SharedPreferenceAccess(this@DepositOrWithdrawActivity).getInstanceObject(
-                            this@DepositOrWithdrawActivity
-                        )
+                        SharedPreferenceAccess(this@DepositOrWithdrawActivity)
+                            .getInstanceObject(
+                                this@DepositOrWithdrawActivity
+                            )
                             .getPreference()
-
-                    db = DetailsDatabase.getAppDataBase(this)
+                    db =
+                        DetailsDatabase.getAppDataBase(
+                            this
+                        )
                     GlobalScope.launch {
                         val balance = db?.details()?.getAmount(mAccountNumber)
-                        val transactionDate = MiniStatementTable().setTransactionDate()
-                        val transactionTime = MiniStatementTable().setTransactionTime()
+                        val transactionDate = ConfigUtil().getTransactionDate()
+                        val transactionTime = ConfigUtil().getTransactionTime()
                         val uniqueId = db?.transactionDetails()?.random()
-                        when (intent.getIntExtra("DepositOrWithdraw", 0)) {
+                        when (intent.getIntExtra(
+                            ConfigUtil().depositOrWithdrawIntentName,
+                            0
+                        )) {
                             R.id.btnDeposit -> {
                                 val creditAfterAmount = amount + balance!!
                                 db?.details()?.updateBalance(creditAfterAmount, mAccountNumber)
@@ -56,7 +67,7 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
                                         mAccountNumber,
                                         transactionTime,
                                         transactionDate,
-                                        "credit",
+                                        ConfigUtil().depositRemark,
                                         amount
                                     )
                                 )
@@ -78,7 +89,7 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
                                             mAccountNumber,
                                             transactionTime,
                                             transactionDate,
-                                            "debit",
+                                            ConfigUtil().withdrawRemark,
                                             amount
                                         )
                                     )
@@ -90,20 +101,19 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
                                     )
                                 } else {
                                     this@DepositOrWithdrawActivity.runOnUiThread {
-                                        ToastAndIntent().toast(
+                                        ConfigUtil().toast(
                                             this@DepositOrWithdrawActivity,
                                             resources.getString(R.string.insufficient_balance)
                                         )
                                         enterAmount.text?.clear()
                                     }
 
-
                                 }
                             }
                         }
                     }
                 } else {
-                    ToastAndIntent().toast(
+                    ConfigUtil().toast(
                         this,
                         resources.getString(R.string.enter_multiples_of_100)
                     )
@@ -113,11 +123,8 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
             }
 
         }
-
         buttonDepositOrWithdraw.setOnClickListener {
             readAmount()
-
-
         }
         enterAmount.setOnKeyListener(View.OnKeyListener { view, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN) {
@@ -131,14 +138,12 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
             }
             false
         })
-
-
-
         buttonBackToMainPage.setOnClickListener {
             SharedPreferenceAccess(this).clearPreference()
             val cancelIntent =
-                Intent(this@DepositOrWithdrawActivity, AccountNumberActivity::class.java)
-            ToastAndIntent().intent(cancelIntent)
+                Intent(this@DepositOrWithdrawActivity,
+                    AccountNumberActivity::class.java)
+            ConfigUtil().intent(cancelIntent)
             startActivity(cancelIntent)
             finish()
         }
@@ -146,7 +151,5 @@ class DepositOrWithdrawActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onBackPressed() {
     }
-
-
 }
 

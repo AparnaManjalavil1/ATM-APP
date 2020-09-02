@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.util
 
 import android.content.Context
 import android.content.SharedPreferences

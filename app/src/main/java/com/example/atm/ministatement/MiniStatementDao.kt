@@ -1,9 +1,10 @@
-package com.example.atm
+package com.example.atm.ministatement
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.atm.ministatement.MiniStatementEntity
 import kotlin.math.abs
 import kotlin.random.Random
 

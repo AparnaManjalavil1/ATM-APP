@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.accountdetails
 
 
 import android.content.Context
@@ -12,7 +12,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.atm.*
+import com.example.atm.dashboard.MainActivity
 import com.example.atm.databinding.ActivityAccountNumberBinding
+import com.example.atm.roomdatabase.AccountDetails
+import com.example.atm.roomdatabase.DetailsDatabase
+import com.example.atm.util.ConfigUtil
+import com.example.atm.util.SharedPreferenceAccess
 import kotlinx.android.synthetic.main.activity_account_number.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -33,26 +39,25 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_account_number)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_account_number
+        )
         fun readAccountNumber() {
             val stringAccountNumber = enterAccountNumber.text.toString()
             try {
-
                 val accountNumber = stringAccountNumber.toLong()
-                db = DetailsDatabase.getAppDataBase(this)
+                db =
+                    DetailsDatabase.getAppDataBase(this)
                 GlobalScope.launch {
                     listAccountNumber = db?.details()?.getDetails(accountNumber)
                     if (listAccountNumber?.size!! > 0) {
-                        SharedPreferenceAccess(this@AccountNumberActivity).getInstanceObject(this@AccountNumberActivity)
+                        SharedPreferenceAccess(this@AccountNumberActivity)
+                            .getInstanceObject(this@AccountNumberActivity)
                             .setPreference(accountNumber)
                         val accountNumberIntent =
                             Intent(this@AccountNumberActivity, MainActivity::class.java)
                         startActivity(accountNumberIntent)
-
-
                     } else {
-
-
                         this@AccountNumberActivity.runOnUiThread {
                             Toast.makeText(
                                 this@AccountNumberActivity,
@@ -60,15 +65,10 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
                                 Toast.LENGTH_SHORT
                             ).show()
                             enterAccountNumber.text?.clear()
-
-
                         }
-
-
                     }
 
                 }
-
             } catch (ex: NumberFormatException) {
                 if (stringAccountNumber.trim()
                         .isEmpty()
@@ -86,8 +86,6 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
         }
         btnSubmit.setOnClickListener {
             readAccountNumber()
-
-
         }
         /**
          * InputMethodManager : Manage interactions by the client
@@ -96,7 +94,8 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
         enterAccountNumber.setOnKeyListener(View.OnKeyListener { view, keyCode, _ ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 readAccountNumber()
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE)
+                        as InputMethodManager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
                 return@OnKeyListener true
 
@@ -107,8 +106,6 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private var doubleBackToExitPressedOnce = false
-
-
     override fun onBackPressed() {
         SharedPreferenceAccess(this).clearPreference()
 
@@ -117,14 +114,13 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope {
         }
 
         this.doubleBackToExitPressedOnce = true
-        ToastAndIntent().toast(this, resources.getString(R.string.text_double_exit))
+        ConfigUtil()
+            .toast(this, resources.getString(R.string.text_double_exit))
         Handler(Looper.myLooper()!!).postDelayed(Runnable {
             doubleBackToExitPressedOnce = false
         }, 2000)
 
-
     }
-
 
 }
 

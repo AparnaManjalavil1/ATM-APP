@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.roomdatabase
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -7,7 +7,7 @@
    android:layout_width="match_parent"
    android:layout_height="match_parent"
    android:background="@color/colorAccent"
-   tools:context=".OthersActivity">
+   tools:context=".others.OthersActivity">
     <TextView
         android:id="@+id/bank_name_phone_number_change"
         style="@style/TextAppearance_title"

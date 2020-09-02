@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".TransferActivity">
+    tools:context=".transfer.TransferActivity">
     <TextView
         android:id="@+id/bank_name_transfer"
         style="@style/TextAppearance_title"

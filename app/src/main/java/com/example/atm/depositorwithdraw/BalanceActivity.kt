@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.depositorwithdraw
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,12 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.atm.*
+import com.example.atm.accountdetails.AccountNumberActivity
 import com.example.atm.databinding.ActivityBalanceBinding
+import com.example.atm.roomdatabase.DetailsDatabase
+import com.example.atm.util.ConfigUtil
+import com.example.atm.util.SharedPreferenceAccess
 import kotlinx.android.synthetic.main.activity_balance.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -24,16 +29,16 @@ class BalanceActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_balance)
-
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_balance
+        )
         val mAccountNumber =
-            SharedPreferenceAccess(this@BalanceActivity).getInstanceObject(this@BalanceActivity)
+            SharedPreferenceAccess(this@BalanceActivity)
+                .getInstanceObject(this@BalanceActivity)
                 .getPreference()
         db = DetailsDatabase.getAppDataBase(this)
         GlobalScope.launch {
             val balance = db?.details()?.getAmount(mAccountNumber)
-
-
             /*
         spannableString : markup the text
          */
@@ -42,20 +47,17 @@ class BalanceActivity : AppCompatActivity(), CoroutineScope {
                 override fun onClick(view: View) {
                     balanceDisplay.text = balance.toString()
 
-
                 }
             }
-
-
-
             spannableString.setSpan(clickableSpan, 0, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             balanceDisplay.setText(spannableString, TextView.BufferType.SPANNABLE)
             balanceDisplay.movementMethod = LinkMovementMethod.getInstance()
             buttonBackToMainPage.setOnClickListener {
-                SharedPreferenceAccess(this@BalanceActivity).clearPreference()
+                SharedPreferenceAccess(this@BalanceActivity)
+                    .clearPreference()
                 val cancelBalanceIntent =
                     Intent(this@BalanceActivity, AccountNumberActivity::class.java)
-                ToastAndIntent().intent(cancelBalanceIntent)
+                ConfigUtil().intent(cancelBalanceIntent)
                 startActivity(cancelBalanceIntent)
             }
 

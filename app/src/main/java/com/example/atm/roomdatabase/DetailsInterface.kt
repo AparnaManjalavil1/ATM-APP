@@ -1,6 +1,7 @@
-package com.example.atm
+package com.example.atm.roomdatabase
 
 import androidx.room.*
+import com.example.atm.roomdatabase.AccountDetails
 
 @Dao
 interface DetailsInterface {

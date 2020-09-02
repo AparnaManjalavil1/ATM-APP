@@ -1,10 +1,15 @@
-package com.example.atm
+package com.example.atm.ministatement
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.atm.*
+import com.example.atm.accountdetails.AccountNumberActivity
+import com.example.atm.roomdatabase.DetailsDatabase
+import com.example.atm.util.ConfigUtil
+import com.example.atm.util.SharedPreferenceAccess
 import kotlinx.android.synthetic.main.ministatementrecyclerview.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -23,26 +28,26 @@ class MiniStatementActivity : AppCompatActivity(), CoroutineScope,
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         miniStatementRecyclerView.setHasFixedSize(false)
         val statementList = ArrayList<MiniStatement>()
-
         db = DetailsDatabase.getAppDataBase(this)
         val mAccountNumber =
-            SharedPreferenceAccess(this@MiniStatementActivity).getInstanceObject(this@MiniStatementActivity)
+            SharedPreferenceAccess(this@MiniStatementActivity)
+                .getInstanceObject(this@MiniStatementActivity)
                 .getPreference()
         db = DetailsDatabase.getAppDataBase(this)
-
         GlobalScope.launch {
             val currentBalanceInt = db?.details()?.getAmount(mAccountNumber)
             val currentBalance = currentBalanceInt.toString()
             val entity = db?.transactionDetails()?.getDetails(mAccountNumber)
             val entitySiz = entity?.size
             val entitySize = entitySiz?.minus(1)
-            val adapter = MiniStatementAdapter(statementList, this@MiniStatementActivity)
+            val adapter = MiniStatementAdapter(
+                statementList,
+                this@MiniStatementActivity
+            )
             miniStatementRecyclerView.adapter = adapter
             if (entitySiz == 0) {
                 currentBalanceDisplay.text = getString(R.string.current_balance, currentBalance)
                 noTransactionDisplay.text = getString(R.string.mini_statement_no_transaction)
-
-
             } else if (entitySiz == 1) {
                 statementList.add(
                     MiniStatement(
@@ -56,7 +61,6 @@ class MiniStatementActivity : AppCompatActivity(), CoroutineScope,
                 currentBalanceDisplay.text = getString(R.string.current_balance, currentBalance)
             } else {
                 currentBalanceDisplay.text = getString(R.string.current_balance, currentBalance)
-
                 var count = 0
                 for (i in 0..entitySize!!) {
                     statementList.add(
@@ -76,32 +80,29 @@ class MiniStatementActivity : AppCompatActivity(), CoroutineScope,
 
             }
 
-
         }
         btnCancel.setOnClickListener {
             SharedPreferenceAccess(this).clearPreference()
             val pinCancelDetailsIntent =
                 Intent(this@MiniStatementActivity, AccountNumberActivity::class.java)
-            ToastAndIntent().intent(pinCancelDetailsIntent)
+            ConfigUtil().intent(pinCancelDetailsIntent)
             startActivity(pinCancelDetailsIntent)
             finish()
         }
 
     }
 
-
     override fun onItemClick(mini: MiniStatement, position: Int) {
         val itemClickIntent = Intent(this, TransactionDetailsActivity::class.java)
-        //itemClickIntent.putExtra("details",Array<String>(4){mini.transactionDate,mini.})
-        itemClickIntent.putExtra("date", mini.transactionDate)
-        itemClickIntent.putExtra("time", mini.transactionTime)
-        itemClickIntent.putExtra("remark", mini.remark)
-        itemClickIntent.putExtra("amount", mini.amount)
-
+        itemClickIntent.putExtra(ConfigUtil().date, mini.transactionDate)
+        itemClickIntent.putExtra(ConfigUtil().time, mini.transactionTime)
+        itemClickIntent.putExtra(ConfigUtil().remark, mini.remark)
+        itemClickIntent.putExtra(ConfigUtil().amount, mini.amount)
         startActivity(itemClickIntent)
         finish()
     }
 
     override fun onBackPressed() {
+
     }
 }

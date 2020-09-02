@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".TransactionSuccessful">
+    tools:context=".transfer.TransactionSuccessful">
         <TextView
             android:id="@+id/bank_name_transaction_successful"
             style="@style/TextAppearance_title"

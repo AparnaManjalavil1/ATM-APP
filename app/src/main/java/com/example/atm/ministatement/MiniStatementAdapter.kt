@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.ministatement
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.atm.R
 
 class MiniStatementAdapter(
     var transactionList: ArrayList<MiniStatement>,
@@ -42,7 +43,6 @@ class MiniStatementAdapter(
         var textViewTransaction = itemView.findViewById<TextView>(R.id.transaction_remark_display)
 
         fun initializeRowUIComponents(mini: MiniStatement, action: OnItemClickListener) {
-
             textViewDate.text = mini.transactionDate
             textViewRemark.text = mini.remark
             textViewTime.text = mini.transactionTime
@@ -76,12 +76,10 @@ class MiniStatementAdapter(
 
         }
 
-
     }
 
     interface OnItemClickListener {
         fun onItemClick(mini: MiniStatement, position: Int)
-
     }
 
 }
