@@ -35,7 +35,7 @@ class OthersActivity : AppCompatActivity(), CoroutineScope {
             val builder = AlertDialog.Builder(this@OthersActivity)
             builder.setTitle(R.string.dialog_title)
             builder.setMessage(R.string.dialog_message)
-            builder.setPositiveButton("OK") { _, _ ->
+            builder.setPositiveButton(resources.getString(R.string.dialog_ok)) { _, _ ->
                 val phoneNumberChangeIntent =
                     Intent(
                         this@OthersActivity,
