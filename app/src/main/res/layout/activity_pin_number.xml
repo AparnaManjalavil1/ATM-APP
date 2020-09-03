@@ -16,7 +16,7 @@
         android:text="@string/enter_pin_number"
         android:gravity="center_horizontal"
         android:textColor="@color/colorBackgroundDark"
-        android:textSize="@dimen/size_sub_heading_20sp"
+        android:textSize="@dimen/font_size_20sp"
         app:layout_constraintBottom_toTopOf="@id/pin_number_input_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.29"

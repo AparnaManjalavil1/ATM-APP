@@ -24,7 +24,7 @@
             android:gravity="center_horizontal"
             android:text="@string/enter_withdraw_amount"
             android:textColor="@color/colorBackgroundDark"
-            android:textSize="@dimen/size_sub_heading_20sp"
+            android:textSize="@dimen/font_size_20sp"
             app:layout_constraintBottom_toTopOf="@id/deposit_input_layout"
             app:layout_constraintEnd_toStartOf="@id/bank_name_withdraw"
             app:layout_constraintStart_toEndOf="@id/bank_name_withdraw"

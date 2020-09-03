@@ -26,7 +26,7 @@
         android:gravity="center_horizontal"
         android:text="@string/select_transaction"
         android:textColor="@color/colorBackgroundDark"
-        android:textSize="@dimen/size_sub_heading_20sp"
+        android:textSize="@dimen/font_size_20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btnDeposit"
