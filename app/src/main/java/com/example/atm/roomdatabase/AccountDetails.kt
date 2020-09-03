@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.roomdatabase
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -21,6 +21,4 @@ data class AccountDetails(
     var phoneNumber: Long
 
 
-) {
-    constructor() : this(0L, 0, 0,0L)
-}
+)

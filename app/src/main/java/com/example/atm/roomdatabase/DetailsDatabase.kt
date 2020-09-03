@@ -1,9 +1,11 @@
-package com.example.atm
+package com.example.atm.roomdatabase
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.atm.ministatement.MiniStatementDao
+import com.example.atm.ministatement.MiniStatementEntity
 
 @Database(
     entities = [AccountDetails::class, MiniStatementEntity::class],
@@ -38,8 +40,5 @@ abstract class DetailsDatabase : RoomDatabase() {
         }
 
 
-        fun destroyDataBase() {
-            DETAILSBASE = null
-        }
     }
 }

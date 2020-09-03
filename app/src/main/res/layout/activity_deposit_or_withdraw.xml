@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".depositorwithdraw.DepositOrWithdrawActivity">
+    <TextView
+        android:id="@+id/bank_name_deposit_or_withdraw"
+        style="@style/TextAppearance_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/deposit_or_withdraw_input_layout" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/deposit_or_withdraw_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bank_name_deposit_or_withdraw"
+        app:layout_constraintBottom_toTopOf="@id/buttonDepositOrWithdraw"
+        android:layout_margin="@dimen/margin_16dp"
+        android:textColorHint="@color/colorBackgroundDark"
+        app:hintTextAppearance="@style/text_hint_appearance"
+        style="@style/text_input_layout_style"
+        android:hint="@string/amount">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/enterAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:textColorHint="@color/colorBackgroundDark"
+        android:textColor="@color/colorBackgroundDark"
+        android:maxLength="6"
+        android:autofillHints="" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/buttonDepositOrWithdraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_114dp"
+        android:layout_marginLeft="@dimen/margin_114dp"
+        android:layout_marginEnd="@dimen/margin_114dp"
+        android:layout_marginRight="@dimen/margin_114dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/text_button_submit"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@id/buttonBackToMainPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deposit_or_withdraw_input_layout" />
+
+    <Button
+        android:id="@+id/buttonBackToMainPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_90dp"
+        android:layout_marginLeft="@dimen/margin_90dp"
+        android:layout_marginEnd="@dimen/margin_90dp"
+        android:layout_marginRight="@dimen/margin_90dp"
+        android:layout_marginBottom="@dimen/margin_80dp"
+        android:background="@drawable/round_corners"
+        android:text="@string/back_to_main_page"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonDepositOrWithdraw" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

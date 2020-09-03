@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent"
-        tools:context=".TransactionDetailsActivity">
+        tools:context=".ministatement.TransactionDetailsActivity">
+
     <TextView
         android:id="@+id/bank_name_transaction_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/text_bank_name"
-        android:textColor="@color/colorWhiteBankName"
-        android:textSize="@dimen/size_bank_name_30sp"
+        style="@style/TextAppearance_title"
+        app:layout_constraintBottom_toTopOf="@id/showTransactionDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -23,7 +20,7 @@
         android:id="@+id/showTransactionDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/margin_0dp"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/showTransactionTime"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +30,7 @@
         android:id="@+id/showTransactionTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/margin_0dp"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/showTransactionAccount"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/margin_0dp"
         app:layout_constraintBottom_toTopOf="@id/showTransactionRemark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,7 +54,7 @@
         android:id="@+id/showTransactionRemark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/margin_0dp"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/showTransactionAmount"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,9 +66,9 @@
         android:id="@+id/showTransactionAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="@dimen/margin_0dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCancelTransactionDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/showTransactionRemark" />
@@ -79,11 +76,11 @@
         android:id="@+id/btnCancelTransactionDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="114dp"
-        android:layout_marginLeft="114dp"
-        android:layout_marginEnd="114dp"
-        android:layout_marginRight="114dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="@dimen/margin_114dp"
+        android:layout_marginLeft="@dimen/margin_114dp"
+        android:layout_marginEnd="@dimen/margin_114dp"
+        android:layout_marginRight="@dimen/margin_114dp"
+        android:layout_marginBottom="@dimen/margin_2dp"
         android:background="@drawable/round_corners"
         android:text="@string/text_button_cancel"
         android:textColor="@color/colorWhite"
@@ -93,3 +90,4 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

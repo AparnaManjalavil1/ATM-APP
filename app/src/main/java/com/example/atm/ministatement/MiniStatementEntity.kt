@@ -1,4 +1,4 @@
-package com.example.atm
+package com.example.atm.ministatement
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -14,8 +14,8 @@ data class MiniStatementEntity(
     @ColumnInfo(name = "ACCOUNT_NUMBER")
     var transactionAccountNumber: Long,
 
-    @ColumnInfo(name="TIME")
-    var transactionTime:String,
+    @ColumnInfo(name = "TIME")
+    var transactionTime: String,
 
     @ColumnInfo(name = "DATE")
     var transactionDate: String,
@@ -27,7 +27,5 @@ data class MiniStatementEntity(
     var balance: Int
 
 
-) {
-    constructor() : this(0L, 0L, "", "", "",0)
-}
+)
 

@@ -1,22 +1,22 @@
-package com.example.atm
+package com.example.atm.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.atm.roomdatabase.AccountDetails
+import com.example.atm.accountdetails.AccountNumberActivity
+import com.example.atm.roomdatabase.DetailsDatabase
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class SplashscreenActivity : AppCompatActivity(), CoroutineScope {
     private var db: DetailsDatabase? = null
-
-    // val accountDetails=AccountDetails()
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         db = DetailsDatabase.getAppDataBase(this)
         GlobalScope.launch {
             val details = db?.details()?.getAllDetails()?.size

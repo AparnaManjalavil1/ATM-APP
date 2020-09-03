@@ -1,6 +1,7 @@
-package com.example.atm
+package com.example.atm.roomdatabase
 
 import androidx.room.*
+import com.example.atm.roomdatabase.AccountDetails
 
 @Dao
 interface DetailsInterface {
@@ -35,9 +36,6 @@ interface DetailsInterface {
 
     @Query("SELECT EXISTS(SELECT * FROM AccountDetails WHERE PHONE_NUMBER =:phoneNumber)")
     suspend fun isPhoneNumberExist(phoneNumber: Long): Boolean
-
-    @Update
-    suspend fun update(details: AccountDetails)
 
 
 }

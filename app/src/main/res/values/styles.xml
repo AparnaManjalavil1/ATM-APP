@@ -10,19 +10,22 @@
         <item name="android:windowBackground">@drawable/splash_screen_backgroun</item>
         <item name="android:color">@color/colorWhite</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:text">@string/text_bank_name</item>
     </style>
     <style name="text_input_layout_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-      <item name="boxStrokeWidth">2dp</item>
+      <item name="boxStrokeWidth">@dimen/margin_2dp</item>
         <item name="boxStrokeColor">@color/colorStroke</item>
     </style>
     <style name="text_hint_appearance" >
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/font_size_15sp</item>
         <item name="android:textColor">@color/colorHighLight</item>
     </style>
     <style name="TextAppearance_title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:text">@string/text_bank_name</item>
         <item name="android:textColor">@color/colorWhiteBankName</item>
-        <item name="android:textSize">@dimen/size_bank_name_30sp</item>
+        <item name="android:textSize">@dimen/font_size_21sp</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
 

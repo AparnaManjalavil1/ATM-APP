@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,27 +12,22 @@
 
     <TextView
         android:id="@+id/bank_name_mini_statement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/text_bank_name"
-        android:textColor="@color/colorWhiteBankName"
-        android:textSize="@dimen/size_bank_name_30sp"
-        android:paddingTop="30dp"
-        app:layout_constraintBottom_toTopOf="@id/text_transaction_display"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/TextAppearance_title"
+        android:paddingTop="@dimen/padding_75dp"
+        app:layout_constraintBottom_toTopOf="@id/currentBalanceDisplay"
         app:layout_constraintHorizontal_bias="1.0"
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_transaction_display"
+        android:id="@+id/currentBalanceDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textColor="@color/colorWhiteBankName"
-        android:textSize="@dimen/size_sub_heading_transfer_15sp"
-        android:paddingTop="10dp"
+        android:textSize="@dimen/font_size_15sp"
+        android:paddingTop="@dimen/padding_10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/miniStatementRecyclerView"
@@ -39,22 +35,22 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/miniStatementRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bank_name_mini_statement" />
 
     <TextView
-        android:id="@+id/text_no_transaction_display"
+        android:id="@+id/noTransactionDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:gravity="center_horizontal"
         android:textColor="@color/colorWhiteBankName"
-        android:textSize="@dimen/size_sub_heading_20sp"
-        android:paddingBottom="300dp"
+        android:textSize="@dimen/font_size_20sp"
+        android:paddingBottom="@dimen/padding_300dp"
         app:layout_constraintBottom_toTopOf="@id/btnCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.432"
@@ -66,10 +62,11 @@
         android:id="@+id/btnCancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="114dp"
-        android:layout_marginLeft="114dp"
-        android:layout_marginEnd="114dp"
-        android:layout_marginRight="114dp"
+        android:layout_marginStart="@dimen/margin_114dp"
+        android:layout_marginLeft="@dimen/margin_114dp"
+        android:layout_marginEnd="@dimen/margin_114dp"
+        android:layout_marginRight="@dimen/margin_114dp"
+        android:layout_marginBottom="@dimen/margin_30dp"
         android:background="@drawable/round_corners"
         android:text="@string/text_button_cancel"
         android:textColor="@color/colorWhite"
@@ -80,3 +77,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
