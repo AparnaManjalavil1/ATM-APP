@@ -19,8 +19,6 @@ class ConfigUtil {
     val sharedPreferenceName = "accountNumberToTransfer"
     val transactionId = "transaction_id"
     val transactionAccountNumber = "transaction_account_number"
-    val logCatTag="exception_handling"
-    val logCatMessage="NumberFormatExceptionHandle"
     private val transactionDate = Date()
 
     fun intent(intent: Intent) {
