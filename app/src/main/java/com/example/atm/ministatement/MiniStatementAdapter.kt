@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.atm.R
+import com.example.atm.util.ConfigUtil
 
 class MiniStatementAdapter(
     var transactionList: ArrayList<MiniStatement>,
@@ -46,7 +47,7 @@ class MiniStatementAdapter(
             textViewDate.text = mini.transactionDate
             textViewRemark.text = mini.remark
             textViewTime.text = mini.transactionTime
-            if (textViewRemark.text == "debit") {
+            if (textViewRemark.text == ConfigUtil().withdrawRemark) {
                 textViewAmount.text = itemView.context.resources.getString(
                     R.string.mini_statement_amount,
                     mini.amount.toString()
@@ -54,14 +55,14 @@ class MiniStatementAdapter(
                 )
                 textViewTransaction.text = itemView.context.getString(R.string.show_debit)
                 textViewTransaction.setTextColor(Color.parseColor("#ff0000"))
-            } else if (textViewRemark.text == "credit") {
+            } else if (textViewRemark.text == ConfigUtil().depositRemark) {
                 textViewAmount.text = itemView.context.resources.getString(
                     R.string.mini_statement_amount,
                     mini.amount.toString()
                 )
                 textViewTransaction.text = itemView.context.getString(R.string.show_credit)
                 textViewTransaction.setTextColor(Color.parseColor("#ff669900"))
-            } else if (textViewRemark.text == "transfer") {
+            } else if (textViewRemark.text == ConfigUtil().transferRemark) {
                 textViewAmount.text = itemView.context.resources.getString(
                     R.string.mini_statement_amount,
                     mini.amount.toString()
