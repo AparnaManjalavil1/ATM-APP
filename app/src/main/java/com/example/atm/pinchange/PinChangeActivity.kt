@@ -111,7 +111,7 @@ class PinChangeActivity : AppCompatActivity(), CoroutineScope {
                     enterPinToChange.error = resources.getString(R.string.error_empty_pin_number)
                 }
             } catch (ex: NumberFormatException) {
-                Log.i("NumberFormatException","Number format exception")
+                Log.e("ATM", "Exception : $ex")
             }
         }
         buttonPinChange.setOnClickListener {
