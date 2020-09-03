@@ -68,4 +68,5 @@
     <string name="error_empty_phone_number">Phone Number Cannot Be Empty</string>
     <string name="error_empty_account_number">Account Number Cannot Be Empty</string>
     <string name="error_empty_pin_number">Pin Number Cannot Be Empty</string>
+    <string name="error_invalid_button">INVALID BUTTON</string>
 </resources>

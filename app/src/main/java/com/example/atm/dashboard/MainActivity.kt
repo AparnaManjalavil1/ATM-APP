@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra(ConfigUtil().buttonClick, view.id)
                 startActivity(intent)
             }
-            else -> ConfigUtil().toast(this@MainActivity, "INVALID BUTTON")
+            else -> ConfigUtil().toast(this@MainActivity, getString(R.string.error_invalid_button))
         }
 
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_51dp">51</dimen>
-    <dimen name="size_bank_name_21sp">21sp</dimen>
+    <dimen name="size_bank_name_21sp">20sp</dimen>
     <dimen name="size_sub_heading_20sp">20sp</dimen>
     <dimen name="button_margin_top">301dp</dimen>
     <dimen name="button_margin_bottom">354dp</dimen>
