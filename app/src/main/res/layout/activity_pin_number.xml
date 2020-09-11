@@ -6,94 +6,94 @@
    <androidx.constraintlayout.widget.ConstraintLayout
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   android:background="@color/colorAccent"
+   android:background="@drawable/low_bottom_background"
    tools:context=".readpinnumber.PinNumberActivity"
        >
-    <TextView
+       <ImageView
+           android:id="@+id/logo_image"
+           android:layout_width="@dimen/margin_0dp"
+           android:layout_height="wrap_content"
+           android:src="@drawable/logo3"
+           android:layout_marginStart="@dimen/margin_40dp"
+           android:layout_marginTop="@dimen/margin_40dp"
+           app:layout_constraintBottom_toTopOf="@id/enter_your_pin_number"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:layout_marginLeft="@dimen/margin_40dp" />
+
+       <TextView
         android:id="@+id/enter_your_pin_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enter_pin_number"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorBackgroundDark"
-        android:textSize="@dimen/font_size_20sp"
-        app:layout_constraintBottom_toTopOf="@id/pin_number_input_layout"
+           android:textStyle="bold"
+        android:textColor="@color/colorBlue"
+        android:textSize="@dimen/font_size_25sp"
+           android:layout_marginTop="@dimen/margin_80dp"
+           android:layout_marginBottom="@dimen/margin_16dp"
+        app:layout_constraintBottom_toTopOf="@id/pin_number_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bank_name_pin_number"
-        app:layout_constraintVertical_bias="0.58" />
+        app:layout_constraintTop_toBottomOf="@id/logo_image" />
 
-       <TextView
-           android:id="@+id/bank_name_pin_number"
-           style="@style/TextAppearance_title"
-           app:layout_constraintBottom_toTopOf="@id/enter_your_pin_number"
+       <LinearLayout
+           android:id="@+id/pin_number_layout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:padding="@dimen/padding_30dp"
            app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintHorizontal_bias="1.0"
            app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/pin_number_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/enter_your_pin_number"
-        app:layout_constraintBottom_toTopOf="@id/buttonSubmit"
-        android:layout_margin="@dimen/margin_16dp"
-        android:textColorHint="@color/colorBackgroundDark"
-        app:hintTextAppearance="@style/text_hint_appearance"
-        style="@style/text_input_layout_style"
-        android:hint="@string/pin_number"
-        >
+           app:layout_constraintTop_toBottomOf="@id/enter_your_pin_number">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/enterPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberPassword"
-        android:maxLength="4"
-        android:textColor="@color/colorBackgroundDark"
-        android:textColorHint="@color/colorBackgroundDark"
+           <EditText
+               android:id="@+id/firstDigit"
+               android:layout_width="45dp"
+               android:layout_height="49dp"
+               android:layout_margin="@dimen/margin_16dp"
+               android:background="@drawable/round_corners_edit_text"
+               android:inputType="numberPassword"
+               android:maxLength="1"
+               android:textCursorDrawable="@drawable/cursor_color"
+               android:gravity="center"
+               />
 
-         />
-    </com.google.android.material.textfield.TextInputLayout>
+           <EditText
+               android:id="@+id/secondDigit"
+               android:layout_width="45dp"
+               android:layout_height="49dp"
+               android:layout_margin="@dimen/margin_16dp"
+               android:background="@drawable/round_corners_edit_text"
+               android:inputType="numberPassword"
+               android:maxLength="1"
+               android:textCursorDrawable="@drawable/cursor_color"
+               android:gravity="center"/>
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_114dp"
-        android:layout_marginLeft="@dimen/margin_114dp"
-        android:layout_marginEnd="@dimen/margin_114dp"
-        android:layout_marginRight="@dimen/margin_114dp"
-        android:background="@drawable/round_corners"
-        android:text="@string/text_button_cancel"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toEndOf="@id/buttonSubmit"
-        app:layout_constraintEnd_toStartOf="@id/buttonSubmit"
-        app:layout_constraintTop_toBottomOf="@id/buttonSubmit"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+           <EditText
+               android:id="@+id/thirdDigit"
+               android:layout_width="45dp"
+               android:layout_height="49dp"
+               android:layout_margin="@dimen/margin_16dp"
+               android:background="@drawable/round_corners_edit_text"
+               android:inputType="numberPassword"
+               android:textCursorDrawable="@drawable/cursor_color"
+                android:maxLength="1"
+               android:gravity="center"/>
 
+           <EditText
+               android:id="@+id/fourthDigit"
+               android:layout_width="45dp"
+               android:layout_height="49dp"
+               android:layout_margin="@dimen/margin_16dp"
+               android:background="@drawable/round_corners_edit_text"
+               android:inputType="numberPassword"
+               android:maxLength="1"
+               android:textCursorDrawable="@drawable/cursor_color"
+               android:gravity="center"/>
 
-
-
-
-    <Button
-        android:id="@+id/buttonSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_114dp"
-        android:layout_marginLeft="@dimen/margin_114dp"
-        android:layout_marginEnd="@dimen/margin_114dp"
-        android:layout_marginRight="@dimen/margin_114dp"
-        android:background="@drawable/round_corners"
-        android:text="@string/text_button_submit"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toEndOf="@id/pin_number_input_layout"
-        app:layout_constraintEnd_toStartOf="@id/pin_number_input_layout"
-        app:layout_constraintTop_toBottomOf="@id/pin_number_input_layout"
-        app:layout_constraintBottom_toTopOf="@id/btnCancel" />
+       </LinearLayout>
 
 
    </androidx.constraintlayout.widget.ConstraintLayout>

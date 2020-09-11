@@ -3,7 +3,9 @@
     package="com.example.atm">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".roomdatabase.DetailsDatabaseInstance"
@@ -12,7 +14,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/exalture"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".accountdetails.WebViewActivity"></activity>
+        <activity android:name=".CreateNewAccountActivity" />
         <activity android:name=".depositorwithdraw.DepositOrWithdrawActivity" />
         <activity android:name=".ministatement.TransactionDetailsActivity" />
         <activity android:name=".transfer.TransactionSuccessful" />
@@ -31,7 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".others.OthersActivity" />
         <activity
             android:name=".readpinnumber.PinNumberActivity"
