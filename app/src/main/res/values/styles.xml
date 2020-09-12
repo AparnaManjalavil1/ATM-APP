@@ -30,5 +30,9 @@
         <item name="android:textSize">@dimen/font_size_25sp</item>
         <item name="android:gravity">start</item>
     </style>
+    <style name="account_type_dialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="windowMinWidthMajor">70%</item>
+        <item name="windowMinWidthMinor">50%</item>
+    </style>
 
 </resources>

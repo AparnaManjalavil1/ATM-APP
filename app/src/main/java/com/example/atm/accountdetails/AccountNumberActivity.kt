@@ -20,15 +20,16 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.atm.CreateNewAccountActivity
 import com.example.atm.R
+import com.example.atm.dashboard.MainActivity
 import com.example.atm.databinding.ActivityAccountNumberBinding
 import com.example.atm.roomdatabase.AccountDetails
 import com.example.atm.roomdatabase.DetailsDatabase
@@ -41,6 +42,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.activity_account_number.*
+import kotlinx.android.synthetic.main.alert_dialog.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -79,15 +81,47 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope, PermissionLis
                         SharedPreferenceAccess(this@AccountNumberActivity)
                             .getInstanceObject(this@AccountNumberActivity)
                             .setPreference(accountNumber)
+                        this@AccountNumberActivity.runOnUiThread {
+                            val alertView = LayoutInflater
+                                .from(this@AccountNumberActivity)
+                                .inflate(R.layout.alert_dialog, null)
+                            val alertBoxBuilder =
+                                AlertDialog.Builder(this@AccountNumberActivity)
+                                    .setView(alertView)
+                            val alertBox = alertBoxBuilder.create()
+                            val imm = getSystemService(
+                                Context.INPUT_METHOD_SERVICE
+                            )
+                                    as InputMethodManager
+                            imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                            alertBox.show()
+                            alertBox.window?.setBackgroundDrawableResource(R.drawable.rounded_corners_alert_box)
+                            alertBox.window?.setLayout(950, 575)
+                            alertView.savings.setOnClickListener {
+                                alertBox.dismiss()
+                                val accountNumberIntent =
+                                    Intent(
+                                        this@AccountNumberActivity,
+                                        MainActivity::class.java
+                                    )
+                                startActivity(accountNumberIntent)
+                            }
+                            alertView.current.setOnClickListener {
+                                alertBox.dismiss()
+                                val accountNumberIntent =
+                                    Intent(
+                                        this@AccountNumberActivity,
+                                        MainActivity::class.java
+                                    )
+                                startActivity(accountNumberIntent)
+                            }
+                        }
 
                     } else {
                         this@AccountNumberActivity.runOnUiThread {
-                            Toast.makeText(
-                                this@AccountNumberActivity,
-                                resources.getString(R.string.error_invalid_account_number),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            enterAccountNumber.text?.clear()
+                            enterAccountNumber.requestFocus()
+                            enterAccountNumber.error =
+                                resources.getString(R.string.error_invalid_account_number)
                         }
                     }
 
@@ -100,7 +134,6 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope, PermissionLis
                     enterAccountNumber.error =
                         resources.getString(R.string.error_empty_account_number)
                 } else if (stringAccountNumber.trim().length < 10) {
-                    enterAccountNumber.requestFocus()
                     enterAccountNumber.error =
                         resources.getString(R.string.error_invalid_account_number)
                 }
@@ -112,7 +145,10 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope, PermissionLis
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 val createAccountIntent =
-                    Intent(this@AccountNumberActivity, CreateNewAccountActivity::class.java)
+                    Intent(
+                        this@AccountNumberActivity,
+                        CreateNewAccountActivity::class.java
+                    )
                 ConfigUtil().intent(createAccountIntent)
                 startActivity(createAccountIntent)
                 finish()
@@ -147,7 +183,7 @@ class AccountNumberActivity : AppCompatActivity(), CoroutineScope, PermissionLis
         mail.setOnClickListener {
             val mailIntent = Intent(Intent.ACTION_SENDTO)
             mailIntent.data = Uri.parse("mailto:")
-            val recipients = arrayOf(R.string.mail_id)
+            val recipients = arrayOf(getString(R.string.mail_id))
             mailIntent.putExtra(Intent.EXTRA_EMAIL, recipients)
             try {
                 startActivity(Intent.createChooser(mailIntent, ConfigUtil().sendingText))
